@@ -19,9 +19,8 @@ export const HeaderContent = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginHorizontal: 20,
-  marginTop: '5%',
+  marginTop: '7%',
   position: 'absolute',
-  top: '2%',
   width: '90%',
 });
 

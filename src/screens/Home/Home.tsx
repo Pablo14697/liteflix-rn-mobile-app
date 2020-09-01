@@ -18,20 +18,24 @@ import {
 
 // NAVIGATION
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { setComingSoonFilms } from '../../redux/actions/films';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
 }
 
 function Home({ navigation }: Props) {
+  const dispatch = useDispatch();
+  dispatch(setComingSoonFilms({}));
+
   const openDrawerNavigator = () => {
     navigation.openDrawer();
   };
-
   return (
     <Container>
       <ScrollContent>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <HeaderContent>
           <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
             <BurgerIcon height={30} width={40} />
