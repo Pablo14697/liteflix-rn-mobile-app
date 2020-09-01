@@ -18,7 +18,8 @@
     "react-native-gesture-handler": "^1.7.0",
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
-    "react-native-screens": "^2.10.1"
+    "react-native-screens": "^2.10.1",
+    "react-native-svg": "^12.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -38,6 +39,7 @@
     "lint-staged": "^10.2.13",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^2.1.1",
+    "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "16.13.1",
     "typescript": "^3.8.3"
   },
@@ -54,13 +56,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit --skipLibCheck && lint-staged"
     }
   },
   "lint-staged": {
-    "./src/*.{js,jsx,ts,tsx}": [
-      "npx prettier --write",
-      "eslint src/*.js --fix-dry-run"
+    "*.{js,jsx,ts,tsx,json}": [
+      "prettier \"src/**/*.{js,jsx,json,tsx,ts}\" --write",
+      "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
     ]
   }
 }
