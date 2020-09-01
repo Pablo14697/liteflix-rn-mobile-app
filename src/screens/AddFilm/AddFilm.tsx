@@ -3,12 +3,12 @@ import React from 'react';
 
 // COMPONENTS
 import { Container } from './styles';
-import { Typography } from '../../components';
+import { Header } from '../../components';
 
 function AddFilm() {
   return (
     <Container>
-      <Typography color="white">Add Films</Typography>
+      <Header title="AÑADIR PELÍCULA" />
     </Container>
   );
 }
