@@ -8,6 +8,7 @@ import { Spacing, Typography } from '../../components';
 // NAVIGATION
 import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { goToPage } from '../RootNavigation';
 
 // SCREENS
 import { Home } from '../../screens';
@@ -41,7 +42,7 @@ function CustomDrawerContent(props: any) {
   const closeDrawerNavigator = () => {
     props.navigation.closeDrawer();
   };
-
+  const goToAddFilm = () => goToPage('AddFilm');
   return (
     <DrawerContainer>
       <ScrollView style={NativeStyles.scrollView}>
@@ -87,7 +88,7 @@ function CustomDrawerContent(props: any) {
             </Typography>
           </NewsOptionButton>
         ))}
-        <AddMovieButton>
+        <AddMovieButton onPress={goToAddFilm}>
           <PlusIcon height={20} width={20} />
           <Spacing isHorizontal size={5} />
           <Typography color="white" size={20}>
