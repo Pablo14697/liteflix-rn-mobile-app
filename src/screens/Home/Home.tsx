@@ -17,6 +17,7 @@ import {
   Container,
   ScrollContent,
   Fill,
+  GradientColors,
   HeaderContent,
   NativeStyles,
   OnImageContent,
@@ -53,8 +54,6 @@ interface Props {
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
   setComingSoonFilms: (payload: Films) => void;
 }
-
-const GradientColors = ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)'];
 
 function Home({ navigation, films, setComingSoonFilms }: Props) {
   const openDrawerNavigator = () => {

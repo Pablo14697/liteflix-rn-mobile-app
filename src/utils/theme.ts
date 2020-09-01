@@ -2,6 +2,10 @@ const colors = {
   black: '#000000',
   electricViolet: '#ce00ff',
   mineShaft: '#222222',
+  opacity0Black: 'rgba(0, 0, 0, 0)',
+  opacity5Black: 'rgba(0, 0, 0, 0.5)',
+  opacity7Black: 'rgba(0, 0, 0, 0.7)',
+  opacity100Black: 'rgba(0, 0, 0, 1)',
   red: 'red',
   white: '#FFFFFF',
 };

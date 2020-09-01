@@ -21,6 +21,13 @@ export const Container = styled(View)({
   flex: 1,
 });
 
+export const GradientColors = [
+  theme.colors.opacity5Black,
+  theme.colors.opacity0Black,
+  theme.colors.opacity0Black,
+  theme.colors.opacity100Black,
+];
+
 export const HeaderContent = styled(View)({
   alignItems: 'center',
   flexDirection: 'row',
@@ -78,7 +85,7 @@ export const PlayContainer = styled(View)({
 export const PlayButton = styled(TouchableOpacity)({
   alignItems: 'center',
   alignSelf: 'center',
-  backgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: theme.colors.opacity7Black,
   borderRadius: 30,
   flexDirection: 'row',
   height: 45,
@@ -117,7 +124,7 @@ export const StarringImage = styled(ImageBackground)({
 
 export const TitleContainer = styled(View)({
   alignSelf: 'center',
-  backgroundColor: 'rgba(0,0,0,0.7)',
+  backgroundColor: theme.colors.opacity7Black,
   borderRadius: 10,
   height: 40,
   justifyContent: 'center',
