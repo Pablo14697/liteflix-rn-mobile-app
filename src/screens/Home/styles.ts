@@ -40,6 +40,7 @@ export const Fill = styled(View)({
 export const NativeStyles = StyleSheet.create({
   columnFlatList: { justifyContent: 'space-between' },
   hitSlop: { bottom: 10, left: 10, right: 10, top: 10 },
+  linearGradient: { height: '100%', width: '100%' },
 });
 
 export const ScrollContent = styled(ScrollView)({
@@ -51,6 +52,8 @@ export const ComingSoonImage = styled(Image)({
   height: 200,
   width: '100%',
 });
+
+export const ComingSoonFilmButton = styled(TouchableOpacity)({});
 
 export const ComingSoonSectionContainer = styled(View)({
   marginTop: 80,
@@ -93,9 +96,10 @@ export const PlusContainer = styled(TouchableOpacity)({
   width: 40,
 });
 
+export const PopupalateFilmButton = styled(TouchableOpacity)({ width: '49.5%' });
+
 export const PopulateImage = styled(Image)({
   height: 300,
-  width: '49.5%',
 });
 
 export const PopulateSectionContainer = styled(View)({

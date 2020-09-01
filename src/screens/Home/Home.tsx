@@ -11,6 +11,7 @@ import { BurgerIcon, BurgerIconWhite, Liteflix, PlayIcon, PlusIcon } from '../..
 // STYLES
 import {
   BurgerMenuButton,
+  ComingSoonFilmButton,
   ComingSoonImage,
   ComingSoonSectionContainer,
   Container,
@@ -22,6 +23,7 @@ import {
   PlayButton,
   PlayContainer,
   PlusContainer,
+  PopupalateFilmButton,
   PopulateImage,
   PopulateSectionContainer,
   StarringImage,
@@ -51,6 +53,8 @@ interface Props {
   setComingSoonFilms: (payload: Films) => void;
 }
 
+const GradientColors = ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)'];
+
 function Home({ navigation, films, setComingSoonFilms }: Props) {
   const openDrawerNavigator = () => {
     navigation.openDrawer();
@@ -69,12 +73,16 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   };
 
   const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
-    <ComingSoonImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+    <ComingSoonFilmButton>
+      <ComingSoonImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+    </ComingSoonFilmButton>
+  );
+  const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
+    <PopupalateFilmButton>
+      <PopulateImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+    </PopupalateFilmButton>
   );
   const renderSeparator = () => <Spacing size={5} />;
-  const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
-    <PopulateImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
-  );
 
   useEffect(() => {
     getComingSoonFilms();
@@ -96,8 +104,8 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           }}>
           <LinearGradient
             locations={[0, 0.2, 0.6, 0.93]}
-            colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
-            style={{ height: '100%', width: '100%' }}
+            colors={GradientColors}
+            style={NativeStyles.linearGradient}
           />
         </StarringImage>
         <HeaderContent>
