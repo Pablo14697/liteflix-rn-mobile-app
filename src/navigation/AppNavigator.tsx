@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../screens';
 
+import DrawerNavigator from './DrawerNavigator/DrawerNavigator';
 const { Navigator, Screen } = createStackNavigator();
 
 const MainNavigator = () => (
   <Navigator initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
-    <Screen name="Main" component={Home} />
+    <Screen name="Main" component={DrawerNavigator} />
   </Navigator>
 );
 
