@@ -14,6 +14,7 @@ import { Home } from '../../screens';
 
 // STYLES
 import {
+  AddMovieButton,
   BadgeDot,
   BellContainer,
   BurgerMenuButton,
@@ -21,6 +22,7 @@ import {
   DrawerContainer,
   HeaderContent,
   Line,
+  LogOutButton,
   NameContainer,
   NativeStyles,
   NewsOptionButton,
@@ -28,7 +30,7 @@ import {
 } from './styles';
 
 // ASSETS
-import { BellIcon, BurgerIconWhite, Liteflix, LiteboxIcon } from '../../assets/images';
+import { BellIcon, BurgerIconWhite, Liteflix, LiteboxIcon, PlusIcon } from '../../assets/images';
 
 const Drawer = createDrawerNavigator();
 const { Screen } = createStackNavigator();
@@ -86,6 +88,18 @@ function CustomDrawerContent(props: any) {
             </NewsOptionButton>
           </>
         ))}
+        <AddMovieButton>
+          <PlusIcon height={20} width={20} />
+          <Spacing isHorizontal size={5} />
+          <Typography color="white" size={20}>
+            Agregar película
+          </Typography>
+        </AddMovieButton>
+        <LogOutButton>
+          <Typography color="white" size={20}>
+            Log out
+          </Typography>
+        </LogOutButton>
       </ScrollView>
     </DrawerContainer>
   );
