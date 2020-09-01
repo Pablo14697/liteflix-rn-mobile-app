@@ -58,7 +58,6 @@ export const HeaderContent = styled(View)({
 export const Line = styled(View)({
   borderColor: 'rgba(255,255,255,0.2)',
   borderWidth: 0.5,
-  marginVertical: 15,
   width: '90%',
 });
 
@@ -87,4 +86,7 @@ export const NewsOptionButton = styled(TouchableOpacity)({ marginVertical: 8 });
 export const NewsTitle = styled(View)({
   flexDirection: 'row',
   marginBottom: 5,
+  marginTop: 15,
 });
+
+export const OptionContainer = styled(View)({ justifyContent: 'space-around', height: 45 });

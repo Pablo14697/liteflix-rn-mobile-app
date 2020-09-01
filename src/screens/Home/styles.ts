@@ -41,7 +41,8 @@ export const ScrollContent = styled(ScrollView)({
 });
 
 export const StarringImage = styled(Image)({
-  height: 550,
+  height: 600,
+  position: 'absolute',
   width: '100%',
   zIndex: -1,
 });

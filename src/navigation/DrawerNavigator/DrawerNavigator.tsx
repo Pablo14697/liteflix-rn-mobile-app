@@ -27,6 +27,7 @@ import {
   NativeStyles,
   NewsOptionButton,
   NewsTitle,
+  OptionContainer,
 } from './styles';
 
 // ASSETS
@@ -60,14 +61,14 @@ function CustomDrawerContent(props: any) {
           </Typography>
         </NameContainer>
         {DrawerNavigatorOptions.map((screen: string) => (
-          <>
-            <TouchableOpacity hitSlop={NativeStyles.hitSlop} key={screen}>
+          <OptionContainer key={screen}>
+            <TouchableOpacity hitSlop={NativeStyles.hitSlop}>
               <Typography color="white" size={20}>
                 {screen}
               </Typography>
             </TouchableOpacity>
             <Line />
-          </>
+          </OptionContainer>
         ))}
 
         <NewsTitle>
@@ -80,13 +81,11 @@ function CustomDrawerContent(props: any) {
           </Typography>
         </NewsTitle>
         {News.map((screen: string) => (
-          <>
-            <NewsOptionButton hitSlop={NativeStyles.hitSlop} key={screen}>
-              <Typography color="white" size={20}>
-                {screen}
-              </Typography>
-            </NewsOptionButton>
-          </>
+          <NewsOptionButton hitSlop={NativeStyles.hitSlop} key={screen}>
+            <Typography color="white" size={20}>
+              {screen}
+            </Typography>
+          </NewsOptionButton>
         ))}
         <AddMovieButton>
           <PlusIcon height={20} width={20} />
