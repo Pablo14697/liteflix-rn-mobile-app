@@ -14,26 +14,30 @@ import { Home } from '../../screens';
 
 // STYLES
 import {
+  BadgeDot,
+  BellContainer,
   BurgerMenuButton,
   CircleContainer,
   DrawerContainer,
   HeaderContent,
+  Line,
   NameContainer,
   NativeStyles,
+  NewsOptionButton,
+  NewsTitle,
 } from './styles';
 
 // ASSETS
-import { BurgerIconWhite, Liteflix, LiteboxIcon } from '../../assets/images';
+import { BellIcon, BurgerIconWhite, Liteflix, LiteboxIcon } from '../../assets/images';
 
 const Drawer = createDrawerNavigator();
 const { Screen } = createStackNavigator();
-
+const DrawerNavigatorOptions = ['Cambiar Usuario', 'Configuración', 'Ayuda'];
+const News = ['Series', 'Películas', 'Mi lista', 'Niños'];
 function CustomDrawerContent(props: any) {
   const closeDrawerNavigator = () => {
     props.navigation.closeDrawer();
   };
-
-  const { routeNames } = props.state;
 
   return (
     <DrawerContainer>
@@ -53,13 +57,34 @@ function CustomDrawerContent(props: any) {
             Ernesto Garmendia
           </Typography>
         </NameContainer>
+        {DrawerNavigatorOptions.map((screen: string) => (
+          <>
+            <TouchableOpacity hitSlop={NativeStyles.hitSlop} key={screen}>
+              <Typography color="white" size={20}>
+                {screen}
+              </Typography>
+            </TouchableOpacity>
+            <Line />
+          </>
+        ))}
 
-        {routeNames.map((screen: string) => (
-          <TouchableOpacity key={screen}>
-            <Typography color="white" size={20}>
-              {screen}
-            </Typography>
-          </TouchableOpacity>
+        <NewsTitle>
+          <BellContainer>
+            <BadgeDot />
+            <BellIcon height={25} width={25} />
+          </BellContainer>
+          <Typography color="white" size={22}>
+            Novedades
+          </Typography>
+        </NewsTitle>
+        {News.map((screen: string) => (
+          <>
+            <NewsOptionButton hitSlop={NativeStyles.hitSlop} key={screen}>
+              <Typography color="white" size={20}>
+                {screen}
+              </Typography>
+            </NewsOptionButton>
+          </>
         ))}
       </ScrollView>
     </DrawerContainer>

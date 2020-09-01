@@ -7,6 +7,19 @@ import styled from 'styled-components';
 // UTILS
 import { theme } from '../../utils';
 
+export const BadgeDot = styled(View)({
+  backgroundColor: theme.colors.red,
+  borderRadius: 5,
+  height: 10,
+  position: 'absolute',
+  right: 2,
+  top: 2,
+  width: 10,
+  zIndex: 1,
+});
+
+export const BellContainer = styled(View)({ marginRight: 10 });
+
 export const BurgerMenuButton = styled(TouchableOpacity)({});
 
 export const CircleContainer = styled(View)({
@@ -31,6 +44,13 @@ export const HeaderContent = styled(View)({
   width: '70%',
 });
 
+export const Line = styled(View)({
+  borderColor: 'rgba(255,255,255,0.2)',
+  borderWidth: 0.5,
+  marginVertical: 15,
+  width: '90%',
+});
+
 export const NativeStyles = {
   drawer: { width: '75%' },
   hitSlop: { bottom: 10, left: 10, right: 10, top: 10 },
@@ -43,7 +63,15 @@ export const NameContainer = styled(View)({
   borderRadius: 30,
   flexDirection: 'row',
   height: 55,
+  marginBottom: 35,
+  marginRight: '5%',
   paddingHorizontal: 10,
   paddingRight: '20%',
-  marginRight: '5%',
+});
+
+export const NewsOptionButton = styled(TouchableOpacity)({ marginVertical: 8 });
+
+export const NewsTitle = styled(View)({
+  flexDirection: 'row',
+  marginBottom: 5,
 });
