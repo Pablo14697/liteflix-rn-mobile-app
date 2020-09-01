@@ -1,29 +1,41 @@
 // REACT
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import { FlatList } from 'react-native';
 
 // ASSETS
-import { BurgerIcon, Liteflix } from '../../assets/images/';
+import { BurgerIcon, BurgerIconWhite, Liteflix } from '../../assets/images/';
 
 // STYLES
 import {
   BurgerMenuButton,
+  ComingSoonImage,
+  ComingSoonSectionContainer,
   Container,
   ScrollContent,
   Fill,
   HeaderContent,
   NativeStyles,
+  PopulateSectionContainer,
   StarringImage,
 } from './styles';
 
 // NAVIGATION
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { setComingSoonFilms } from '../../redux/actions/films';
+
+// REDUX
 import { connect } from 'react-redux';
-import Config from '../../config';
 import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
-import { Films } from '../../redux/reducers/films';
+import { setComingSoonFilms } from '../../redux/actions/films';
+
+// COMPONENTS
+import { Typography, Spacing } from '../../components';
+
+// TYPES
+import { Films, FilmsResults } from '../../redux/reducers/films';
+
+// UTILS
+import Config from '../../config';
 
 interface Props {
   films: Films;
@@ -35,6 +47,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   const openDrawerNavigator = () => {
     navigation.openDrawer();
   };
+
   const getComingSoonFilms = async () => {
     try {
       const response = await fetch(Config.COMING_SOON_API_URL);
@@ -47,28 +60,59 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
     }
   };
 
+  const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
+    <ComingSoonImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+  );
+  const renderComingSoonSeparator = () => <Spacing size={7} />;
+
   useEffect(() => {
     getComingSoonFilms();
   }, []);
-  console.log('Films', films);
+
+  const poster =
+    films.results &&
+    films.results.length > 0 &&
+    films.results[0].poster_path.length > 0 &&
+    films.results[0].poster_path;
+
   return (
     <Container>
       <ScrollContent>
-        <StatusBar barStyle="dark-content" />
         <HeaderContent>
           <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
-            <BurgerIcon height={30} width={40} />
+            {poster ? (
+              <BurgerIcon height={30} width={40} />
+            ) : (
+              <BurgerIconWhite height={30} width={40} />
+            )}
           </BurgerMenuButton>
           <Liteflix height={60} width={140} />
           <Fill />
         </HeaderContent>
+
         <StarringImage
           resizeMode="stretch"
           source={{
-            uri:
-              'https://vanguardia.com.mx/sites/default/files/styles/paragraph_image_large_desktop_1x/public/dark-tower-poster-idris-elba_1200_1778_81_s.jpeg',
+            uri: `https://image.tmdb.org/t/p/w500${poster}`,
           }}
         />
+
+        <ComingSoonSectionContainer>
+          <Typography color="white" size={22}>
+            Próximamente
+          </Typography>
+          <Spacing size={10} />
+          <FlatList
+            data={films.results.splice(0, 4)}
+            ItemSeparatorComponent={renderComingSoonSeparator}
+            renderItem={renderComingSoonItem}
+          />
+        </ComingSoonSectionContainer>
+        <PopulateSectionContainer>
+          <Typography color="white" size={22}>
+            Populares DE LITEFLIX
+          </Typography>
+        </PopulateSectionContainer>
       </ScrollContent>
     </Container>
   );

@@ -39,9 +39,25 @@ export const ScrollContent = styled(ScrollView)({
   width: '100%',
 });
 
+export const ComingSoonImage = styled(Image)({
+  height: 200,
+  width: '100%',
+});
+
+export const ComingSoonSectionContainer = styled(View)({
+  marginTop: 565,
+  paddingLeft: 20,
+  width: '100%',
+});
+
+export const PopulateSectionContainer = styled(View)({
+  marginTop: 20,
+  paddingHorizontal: 20,
+  width: '100%',
+});
+
 export const StarringImage = styled(Image)({
   height: 600,
-  position: 'absolute',
   width: '100%',
   zIndex: -1,
 });

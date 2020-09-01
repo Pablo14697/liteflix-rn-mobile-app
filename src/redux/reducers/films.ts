@@ -1,7 +1,7 @@
 import { COMING_SOON_DATA } from '../actions/types';
 import { SetComingSoonFilmsAction } from '../actions/films';
 
-type FilmsResults = {
+export type FilmsResults = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
