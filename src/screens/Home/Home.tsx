@@ -23,35 +23,12 @@ import { connect } from 'react-redux';
 import Config from '../../config';
 import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
+import { Films } from '../../redux/reducers/films';
 
-type ComingSoonResults = {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-};
-
-export type ComingSoonFilmsResponse = {
-  dates: { maximum: string; minimum: string };
-  page: number;
-  results: ComingSoonResults[];
-  total_pages: number;
-  total_results: number;
-};
 interface Props {
-  films: object[];
+  films: Films;
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
-  setComingSoonFilms: (payload: ComingSoonFilmsResponse) => void;
+  setComingSoonFilms: (payload: Films) => void;
 }
 
 function Home({ navigation, films, setComingSoonFilms }: Props) {
@@ -73,7 +50,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   useEffect(() => {
     getComingSoonFilms();
   }, []);
-  console.log('BEFORE GET', films);
+  console.log('Films', films);
   return (
     <Container>
       <ScrollContent>
@@ -105,7 +82,7 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setComingSoonFilms: (films: ComingSoonFilmsResponse) => {
+    setComingSoonFilms: (films: Films) => {
       dispatch(setComingSoonFilms(films));
     },
   };
