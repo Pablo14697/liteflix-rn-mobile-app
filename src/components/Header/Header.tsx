@@ -13,7 +13,7 @@ interface Props {
 const Header = ({ title }: Props) => (
   <HeaderContainer>
     <ArrowBackButton hitSlop={NativeStyles.hitSlop}>
-      <ArrowBack height={30} width={40} />
+      <ArrowBack height={25} width={35} />
     </ArrowBackButton>
     <Typography color="white" size={20}>
       {title}
