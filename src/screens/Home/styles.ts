@@ -114,3 +114,14 @@ export const StarringImage = styled(ImageBackground)({
   width: '100%',
   zIndex: -1,
 });
+
+export const TitleContainer = styled(View)({
+  alignSelf: 'center',
+  backgroundColor: 'rgba(0,0,0,0.7)',
+  borderRadius: 10,
+  height: 40,
+  justifyContent: 'center',
+  paddingHorizontal: 20,
+  position: 'absolute',
+  top: '45%',
+});

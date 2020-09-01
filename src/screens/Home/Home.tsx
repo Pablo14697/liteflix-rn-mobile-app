@@ -27,6 +27,7 @@ import {
   PopulateImage,
   PopulateSectionContainer,
   StarringImage,
+  TitleContainer,
 } from './styles';
 
 // NAVIGATION
@@ -75,11 +76,21 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
     <ComingSoonFilmButton>
       <ComingSoonImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
+      <TitleContainer>
+        <Typography color="white" size={20}>
+          {item.title.toUpperCase()}
+        </Typography>
+      </TitleContainer>
     </ComingSoonFilmButton>
   );
   const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
     <PopupalateFilmButton>
       <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
+      <TitleContainer>
+        <Typography color="white" size={20}>
+          {item.title.toUpperCase()}
+        </Typography>
+      </TitleContainer>
     </PopupalateFilmButton>
   );
   const renderSeparator = () => <Spacing size={5} />;
