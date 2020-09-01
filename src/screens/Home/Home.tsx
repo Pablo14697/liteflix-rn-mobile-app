@@ -1,6 +1,6 @@
 // REACT
 import React, { useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StatusBar } from 'react-native';
 
 // LIBS
 import LinearGradient from 'react-native-linear-gradient';
@@ -96,6 +96,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
 
   return (
     <Container>
+      <StatusBar barStyle="light-content" />
       <ScrollContent>
         <StarringImage
           resizeMode="stretch"
