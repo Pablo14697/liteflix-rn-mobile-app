@@ -10,6 +10,7 @@ import { theme } from '../../utils';
 export interface TypographyProps {
   color: keyof typeof theme.colors;
   children: React.ReactNode;
+  numberOfLines?: number;
   size: number;
   textAlign: 'center' | 'justify' | 'left' | 'right';
 }

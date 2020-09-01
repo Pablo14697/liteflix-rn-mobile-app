@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
 // CUSTOM COMPONENTS
-import { Typography } from '../../components';
+import { Spacing, Typography } from '../../components';
 
 // NAVIGATION
 import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
@@ -13,10 +13,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from '../../screens';
 
 // STYLES
-import { BurgerMenuButton, DrawerContainer, HeaderContent, NativeStyles } from './styles';
+import {
+  BurgerMenuButton,
+  CircleContainer,
+  DrawerContainer,
+  HeaderContent,
+  NameContainer,
+  NativeStyles,
+} from './styles';
 
 // ASSETS
-import { BurgerIconWhite, Liteflix } from '../../assets/images';
+import { BurgerIconWhite, Liteflix, LiteboxIcon } from '../../assets/images';
 
 const Drawer = createDrawerNavigator();
 const { Screen } = createStackNavigator();
@@ -37,6 +44,16 @@ function CustomDrawerContent(props: any) {
           </BurgerMenuButton>
           <Liteflix height={60} width={140} />
         </HeaderContent>
+        <Spacing />
+        <NameContainer>
+          <CircleContainer>
+            <LiteboxIcon height={30} width={30} />
+          </CircleContainer>
+          <Typography color="white" numberOfLines={1} size={18}>
+            Ernesto Garmendia
+          </Typography>
+        </NameContainer>
+
         {routeNames.map((screen: string) => (
           <TouchableOpacity key={screen}>
             <Typography color="white" size={20}>

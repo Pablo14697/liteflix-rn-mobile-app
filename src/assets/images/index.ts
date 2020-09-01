@@ -4,3 +4,4 @@ export { default as BurgerIconWhite } from './icons/menu-white.svg';
 
 // LOGOS
 export { default as Liteflix } from './logos/liteflix.svg';
+export { default as LiteboxIcon } from './logos/litebox-icon.svg';
