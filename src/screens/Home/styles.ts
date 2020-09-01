@@ -1,5 +1,5 @@
 // REACT
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ import { theme } from '../../utils';
 
 export const BurgerMenuButton = styled(TouchableOpacity)({});
 
-export const Container = styled(SafeAreaView)({
+export const Container = styled(View)({
   backgroundColor: theme.colors.black,
   flex: 1,
 });
@@ -19,6 +19,7 @@ export const HeaderContent = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginHorizontal: 20,
+  marginTop: '5%',
   position: 'absolute',
   top: '2%',
   width: '90%',
@@ -37,4 +38,10 @@ export const NativeStyles = {
 export const ScrollContent = styled(ScrollView)({
   flex: 1,
   width: '100%',
+});
+
+export const StarringImage = styled(Image)({
+  height: 550,
+  width: '100%',
+  zIndex: -1,
 });

@@ -13,6 +13,7 @@ import {
   Fill,
   HeaderContent,
   NativeStyles,
+  StarringImage,
 } from './styles';
 
 // NAVIGATION
@@ -38,6 +39,13 @@ function Home({ navigation }: Props) {
           <Liteflix height={60} width={140} />
           <Fill />
         </HeaderContent>
+        <StarringImage
+          resizeMode="stretch"
+          source={{
+            uri:
+              'https://vanguardia.com.mx/sites/default/files/styles/paragraph_image_large_desktop_1x/public/dark-tower-poster-idris-elba_1200_1778_81_s.jpeg',
+          }}
+        />
       </ScrollContent>
     </Container>
   );
