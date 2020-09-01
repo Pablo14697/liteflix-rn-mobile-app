@@ -2,8 +2,11 @@
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 
+// LIBS
+import LinearGradient from 'react-native-linear-gradient';
+
 // ASSETS
-import { BurgerIcon, BurgerIconWhite, Liteflix } from '../../assets/images/';
+import { BurgerIcon, BurgerIconWhite, Liteflix, PlayIcon, PlusIcon } from '../../assets/images/';
 
 // STYLES
 import {
@@ -15,6 +18,10 @@ import {
   Fill,
   HeaderContent,
   NativeStyles,
+  OnImageContent,
+  PlayButton,
+  PlayContainer,
+  PlusContainer,
   PopulateSectionContainer,
   StarringImage,
 } from './styles';
@@ -78,6 +85,17 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   return (
     <Container>
       <ScrollContent>
+        <StarringImage
+          resizeMode="stretch"
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500${poster}`,
+          }}>
+          <LinearGradient
+            locations={[0, 0.2, 0.6, 0.93]}
+            colors={['rgba(0,0,0,0.5)', 'rgba(0,0,0,0)', 'rgba(0,0,0,0)', 'rgba(0,0,0,1)']}
+            style={{ height: '100%', width: '100%' }}
+          />
+        </StarringImage>
         <HeaderContent>
           <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
             {poster ? (
@@ -89,19 +107,27 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           <Liteflix height={60} width={140} />
           <Fill />
         </HeaderContent>
-
-        <StarringImage
-          resizeMode="stretch"
-          source={{
-            uri: `https://image.tmdb.org/t/p/w500${poster}`,
-          }}
-        />
+        <OnImageContent>
+          <Fill />
+          <PlayButton>
+            <PlayContainer>
+              <PlayIcon height={30} width={30} />
+              <Spacing isHorizontal size={5} />
+              <Typography color="white" size={20}>
+                Reproducir
+              </Typography>
+            </PlayContainer>
+          </PlayButton>
+          <PlusContainer>
+            <PlusIcon height={20} width={20} />
+          </PlusContainer>
+        </OnImageContent>
 
         <ComingSoonSectionContainer>
           <Typography color="white" size={22}>
             Próximamente
           </Typography>
-          <Spacing size={10} />
+          <Spacing size={5} />
           <FlatList
             data={films.results.splice(0, 4)}
             ItemSeparatorComponent={renderComingSoonSeparator}

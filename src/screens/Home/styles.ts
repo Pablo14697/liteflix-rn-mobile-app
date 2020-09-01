@@ -1,5 +1,5 @@
 // REACT
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, ScrollView, TouchableOpacity, View } from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -45,9 +45,44 @@ export const ComingSoonImage = styled(Image)({
 });
 
 export const ComingSoonSectionContainer = styled(View)({
-  marginTop: 565,
+  marginTop: 80,
   paddingLeft: 20,
   width: '100%',
+});
+
+export const OnImageContent = styled(View)({
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: 380,
+  paddingRight: 20,
+});
+
+export const PlayContainer = styled(View)({
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'center',
+});
+
+export const PlayButton = styled(TouchableOpacity)({
+  alignItems: 'center',
+  alignSelf: 'center',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  borderRadius: 30,
+  flexDirection: 'row',
+  height: 45,
+  justifyContent: 'center',
+  width: '50%',
+});
+
+export const PlusContainer = styled(TouchableOpacity)({
+  alignItems: 'center',
+  borderColor: theme.colors.white,
+  borderRadius: 20,
+  borderWidth: 1,
+  height: 40,
+  justifyContent: 'center',
+  width: 40,
 });
 
 export const PopulateSectionContainer = styled(View)({
@@ -56,8 +91,9 @@ export const PopulateSectionContainer = styled(View)({
   width: '100%',
 });
 
-export const StarringImage = styled(Image)({
+export const StarringImage = styled(ImageBackground)({
   height: 600,
+  position: 'absolute',
   width: '100%',
   zIndex: -1,
 });
