@@ -1,11 +1,19 @@
 // REACT
 import React from 'react';
+import { StatusBar } from 'react-native';
 
 // ASSETS
 import { BurgerIcon, Liteflix } from '../../assets/images/';
 
 // STYLES
-import { BurgerMenuButton, Container, Fill, HeaderContent, NativeStyles } from './styles';
+import {
+  BurgerMenuButton,
+  Container,
+  ScrollContent,
+  Fill,
+  HeaderContent,
+  NativeStyles,
+} from './styles';
 
 // NAVIGATION
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -21,13 +29,16 @@ function Home({ navigation }: Props) {
 
   return (
     <Container>
-      <HeaderContent>
-        <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
-          <BurgerIcon height={30} width={40} />
-        </BurgerMenuButton>
-        <Liteflix height={30} width={100} />
-        <Fill />
-      </HeaderContent>
+      <ScrollContent>
+        <StatusBar barStyle="light-content" />
+        <HeaderContent>
+          <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
+            <BurgerIcon height={30} width={40} />
+          </BurgerMenuButton>
+          <Liteflix height={60} width={140} />
+          <Fill />
+        </HeaderContent>
+      </ScrollContent>
     </Container>
   );
 }
