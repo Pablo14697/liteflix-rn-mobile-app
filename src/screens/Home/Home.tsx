@@ -74,12 +74,12 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
 
   const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
     <ComingSoonFilmButton>
-      <ComingSoonImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+      <ComingSoonImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
     </ComingSoonFilmButton>
   );
   const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
     <PopupalateFilmButton>
-      <PopulateImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+      <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
     </PopupalateFilmButton>
   );
   const renderSeparator = () => <Spacing size={5} />;
@@ -100,7 +100,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
         <StarringImage
           resizeMode="stretch"
           source={{
-            uri: `https://image.tmdb.org/t/p/w500${poster}`,
+            uri: `${Config.IMAGES_API_URL}${poster}`,
           }}>
           <LinearGradient
             locations={[0, 0.2, 0.6, 0.93]}
