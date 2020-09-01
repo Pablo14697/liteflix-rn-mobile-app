@@ -32,7 +32,6 @@
     "@typescript-eslint/parser": "^2.27.0",
     "babel-jest": "^25.1.0",
     "eslint": "^7.8.0",
-    "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-react-hooks": "^4.1.0",
     "husky": "3.0.9",
     "jest": "^25.1.0",
