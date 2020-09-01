@@ -2,7 +2,11 @@
 import { combineReducers } from 'redux';
 
 // REDUCERS
-import films from './films';
+import films, { FilmsState } from './films';
+
+export interface State {
+  films: FilmsState;
+}
 
 const State = combineReducers({
   films,
