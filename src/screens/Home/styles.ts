@@ -1,5 +1,12 @@
 // REACT
-import { Image, ImageBackground, ScrollView, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -30,9 +37,10 @@ export const Fill = styled(View)({
   width: 40,
 });
 
-export const NativeStyles = {
+export const NativeStyles = StyleSheet.create({
+  columnFlatList: { justifyContent: 'space-between' },
   hitSlop: { bottom: 10, left: 10, right: 10, top: 10 },
-};
+});
 
 export const ScrollContent = styled(ScrollView)({
   flex: 1,
@@ -46,7 +54,7 @@ export const ComingSoonImage = styled(Image)({
 
 export const ComingSoonSectionContainer = styled(View)({
   marginTop: 80,
-  paddingLeft: 20,
+  paddingHorizontal: 20,
   width: '100%',
 });
 
@@ -83,6 +91,11 @@ export const PlusContainer = styled(TouchableOpacity)({
   height: 40,
   justifyContent: 'center',
   width: 40,
+});
+
+export const PopulateImage = styled(Image)({
+  height: 300,
+  width: '49.5%',
 });
 
 export const PopulateSectionContainer = styled(View)({

@@ -22,6 +22,7 @@ import {
   PlayButton,
   PlayContainer,
   PlusContainer,
+  PopulateImage,
   PopulateSectionContainer,
   StarringImage,
 } from './styles';
@@ -70,7 +71,10 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
     <ComingSoonImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
   );
-  const renderComingSoonSeparator = () => <Spacing size={7} />;
+  const renderSeparator = () => <Spacing size={5} />;
+  const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
+    <PopulateImage source={{ uri: `https://image.tmdb.org/t/p/w500${item.backdrop_path}` }} />
+  );
 
   useEffect(() => {
     getComingSoonFilms();
@@ -130,7 +134,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           <Spacing size={5} />
           <FlatList
             data={films.results.splice(0, 4)}
-            ItemSeparatorComponent={renderComingSoonSeparator}
+            ItemSeparatorComponent={renderSeparator}
             renderItem={renderComingSoonItem}
           />
         </ComingSoonSectionContainer>
@@ -138,6 +142,14 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           <Typography color="white" size={22}>
             Populares DE LITEFLIX
           </Typography>
+          <Spacing size={5} />
+          <FlatList
+            data={films.results.splice(0, 4)}
+            ItemSeparatorComponent={renderSeparator}
+            numColumns={2}
+            renderItem={renderPopulateItem}
+            columnWrapperStyle={NativeStyles.columnFlatList}
+          />
         </PopulateSectionContainer>
       </ScrollContent>
     </Container>
