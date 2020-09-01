@@ -24,7 +24,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
     <DrawerContainer>
       <ScrollView style={NativeStyles.scrollView}>
         {routeNames.map((screen: string) => (
-          <TouchableOpacity>
+          <TouchableOpacity key={screen}>
             <Typography color="white" size={20}>
               {screen}
             </Typography>
