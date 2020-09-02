@@ -10,6 +10,7 @@ import Typography from '../Typography/Typography';
 
 // STYLES
 import { Input } from './styles';
+import { theme } from '../../utils';
 
 interface InputProps {
   input: {
@@ -23,7 +24,11 @@ type CustomInputProps = InputProps & TextInputProps & WrappedFieldInputProps;
 const CustomInput = ({ input, placeholder }: CustomInputProps) => {
   return (
     <View>
-      <Input onChangeText={input.onChange} placeholder={placeholder} />
+      <Input
+        onChangeText={input.onChange}
+        placeholder={placeholder}
+        placeholderTextColor={theme.colors.boulder}
+      />
       <Typography color="white">{input.error}</Typography>
     </View>
   );

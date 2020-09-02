@@ -1,7 +1,9 @@
 const colors = {
   black: '#000000',
+  boulder: '#757575',
   electricViolet: '#ce00ff',
   mineShaft: '#222222',
+  mineShaft2: '#262626',
   opacity0Black: 'rgba(0, 0, 0, 0)',
   opacity50Black: 'rgba(0, 0, 0, 0.5)',
   opacity70Black: 'rgba(0, 0, 0, 0.7)',
