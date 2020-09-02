@@ -1,5 +1,6 @@
 // REACT
 import React, { useState } from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 // LIBS
 import ImagePicker from 'react-native-image-crop-picker';
@@ -68,34 +69,36 @@ function AddFilm() {
         }}
         validationSchema={schemaValidacion}>
         {({ errors, handleChange, handleBlur, handleSubmit, touched, values }) => (
-          <AddFilmContent>
-            <DataContainer>
-              <PictureContainer onPress={getImage}>
-                {movieImage ? (
-                  <PostImage resizeMode="cover" source={{ uri: movieImage }} />
-                ) : (
-                  <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
-                )}
-              </PictureContainer>
-              <FieldContainer>
-                <Field
-                  onChangeText={handleChange('title')}
-                  onBlur={handleBlur('title')}
-                  placeholder="Ingrese nombre de la película *"
-                  placeholderTextColor={theme.colors.boulder}
-                  value={values.title}
-                />
-                {touched.title && errors.title && <ErrorMessageForm title={errors.title} />}
-              </FieldContainer>
-            </DataContainer>
-            <AddFilmButton
-              height={55}
-              onPress={handleSubmit}
-              style={NativeStyles.addFilm}
-              title="AGREGAR"
-              visiblePlusIcon={false}
-            />
-          </AddFilmContent>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <AddFilmContent>
+              <DataContainer>
+                <PictureContainer onPress={getImage}>
+                  {movieImage ? (
+                    <PostImage resizeMode="cover" source={{ uri: movieImage }} />
+                  ) : (
+                    <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
+                  )}
+                </PictureContainer>
+                <FieldContainer>
+                  <Field
+                    onChangeText={handleChange('title')}
+                    onBlur={handleBlur('title')}
+                    placeholder="Ingrese nombre de la película *"
+                    placeholderTextColor={theme.colors.boulder}
+                    value={values.title}
+                  />
+                  {touched.title && errors.title && <ErrorMessageForm title={errors.title} />}
+                </FieldContainer>
+              </DataContainer>
+              <AddFilmButton
+                height={55}
+                onPress={handleSubmit}
+                style={NativeStyles.addFilm}
+                title="AGREGAR"
+                visiblePlusIcon={false}
+              />
+            </AddFilmContent>
+          </TouchableWithoutFeedback>
         )}
       </Formik>
     </Container>
