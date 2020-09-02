@@ -1,5 +1,5 @@
 // REACT
-import { SafeAreaView, View, StyleSheet } from 'react-native';
+import { Image, SafeAreaView, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -29,10 +29,13 @@ export const DataContainer = styled(View)({
 
 export const EditIconContainer = styled(View)({
   alignItems: 'center',
-  bottom: 15,
+  backgroundColor: theme.colors.white,
+  borderRadius: 20,
   flexDirection: 'row',
-  position: 'absolute',
+  height: 40,
   justifyContent: 'center',
+  position: 'absolute',
+  width: 40,
 });
 
 export const FieldContainer = styled(View)({ alignSelf: 'center', width: '75%' });
@@ -41,12 +44,18 @@ export const NativeStyles = StyleSheet.create({
   addFilm: { width: '70%' },
 });
 
-export const PictureContainer = styled(View)({
+export const PictureContainer = styled(TouchableOpacity)({
   alignItems: 'center',
-  backgroundColor: theme.colors.white,
+  backgroundColor: 'rgba(255,255,255,0.75)',
   borderRadius: 10,
   height: '45%',
   justifyContent: 'center',
   marginVertical: '10%',
   width: '75%',
+});
+
+export const PostImage = styled(Image)({
+  borderRadius: 10,
+  height: '100%',
+  width: '100%',
 });
