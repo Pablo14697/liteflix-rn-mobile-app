@@ -1,12 +1,5 @@
 // REACT
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -46,13 +39,9 @@ export const Fill = styled(View)({
 
 export const NativeStyles = StyleSheet.create({
   columnFlatList: { justifyContent: 'space-between' },
+  footerFlatList: { width: '100%', marginBottom: '20%' },
   hitSlop: { bottom: 10, left: 10, right: 10, top: 10 },
   linearGradient: { height: '100%', width: '100%' },
-});
-
-export const ScrollContent = styled(ScrollView)({
-  flex: 1,
-  width: '100%',
 });
 
 export const ComingSoonImage = styled(Image)({
@@ -60,7 +49,7 @@ export const ComingSoonImage = styled(Image)({
   width: '100%',
 });
 
-export const ComingSoonFilmButton = styled(TouchableOpacity)({});
+export const ComingSoonFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '90%' });
 
 export const ComingSoonSectionContainer = styled(View)({
   marginTop: 80,
@@ -126,9 +115,11 @@ export const TitleContainer = styled(View)({
   alignSelf: 'center',
   backgroundColor: theme.colors.opacity70Black,
   borderRadius: 10,
-  height: 40,
+  flexDirection: 'row',
+  flexWrap: 'wrap',
   justifyContent: 'center',
   paddingHorizontal: 20,
+  paddingVertical: 5,
   position: 'absolute',
   top: '45%',
 });

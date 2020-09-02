@@ -15,7 +15,6 @@ import {
   ComingSoonImage,
   ComingSoonSectionContainer,
   Container,
-  ScrollContent,
   Fill,
   GradientColors,
   HeaderContent,
@@ -82,96 +81,109 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
       </TitleContainer>
     </ComingSoonFilmButton>
   );
-  const renderPopulateItem = ({ item }: { item: FilmsResults }) => (
-    <PopupalateFilmButton>
-      <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
-      <TitleContainer>
-        <Typography color="white" size={20}>
-          {item.title.toUpperCase()}
-        </Typography>
-      </TitleContainer>
-    </PopupalateFilmButton>
-  );
-  const renderSeparator = () => <Spacing size={5} />;
+  const renderPopulateItem = ({ item }: { item: FilmsResults }) => {
+    const { title } = item;
+    return (
+      <PopupalateFilmButton>
+        <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
+        <TitleContainer>
+          <Typography color="white" size={20} textAlign="center">
+            {title.toUpperCase()}
+          </Typography>
+        </TitleContainer>
+      </PopupalateFilmButton>
+    );
+  };
+  const renderSeparator = (size: number) => <Spacing size={size} />;
   const getKeyExtractor = (item: FilmsResults) => String(item.id);
+
+  const renderHeader = () => (
+    <>
+      <StarringImage
+        resizeMode="stretch"
+        source={{
+          uri: `${Config.IMAGES_API_URL}${poster}`,
+        }}>
+        <LinearGradient
+          locations={[0, 0.2, 0.6, 0.93]}
+          colors={GradientColors}
+          style={NativeStyles.linearGradient}
+        />
+      </StarringImage>
+      <HeaderContent>
+        <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
+          {poster ? (
+            <BurgerIcon height={30} width={40} />
+          ) : (
+            <BurgerIconWhite height={30} width={40} />
+          )}
+        </BurgerMenuButton>
+        <Liteflix height={60} width={140} />
+        <Fill />
+      </HeaderContent>
+      <OnImageContent>
+        <Fill />
+        <PlayButton>
+          <PlayContainer>
+            <PlayIcon height={30} width={30} />
+            <Spacing isHorizontal size={5} />
+            <Typography color="white" size={20}>
+              Reproducir
+            </Typography>
+          </PlayContainer>
+        </PlayButton>
+        <PlusContainer>
+          <PlusIcon height={20} width={20} />
+        </PlusContainer>
+      </OnImageContent>
+      <ComingSoonSectionContainer>
+        <Typography color="white" size={22}>
+          Próximamente
+        </Typography>
+        <Spacing size={5} />
+      </ComingSoonSectionContainer>
+    </>
+  );
+
+  const renderFooter = () => (
+    <PopulateSectionContainer>
+      <Typography color="white" size={22}>
+        Populares DE LITEFLIX
+      </Typography>
+      <Spacing size={5} />
+      <FlatList
+        data={films.results.splice(0, 4)}
+        ItemSeparatorComponent={renderSeparator.bind(null, 2)}
+        keyExtractor={getKeyExtractor}
+        numColumns={2}
+        renderItem={renderPopulateItem}
+        columnWrapperStyle={NativeStyles.columnFlatList}
+      />
+    </PopulateSectionContainer>
+  );
+
+  useEffect(() => {
+    getComingSoonFilms();
+  }, []);
+
   const poster =
     films.results &&
     films.results.length > 0 &&
     films.results[0].poster_path.length > 0 &&
     films.results[0].poster_path;
 
-  useEffect(() => {
-    getComingSoonFilms();
-  }, []);
   return (
     <Container>
       <StatusBar barStyle="light-content" />
-      <ScrollContent>
-        <StarringImage
-          resizeMode="stretch"
-          source={{
-            uri: `${Config.IMAGES_API_URL}${poster}`,
-          }}>
-          <LinearGradient
-            locations={[0, 0.2, 0.6, 0.93]}
-            colors={GradientColors}
-            style={NativeStyles.linearGradient}
-          />
-        </StarringImage>
-        <HeaderContent>
-          <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
-            {poster ? (
-              <BurgerIcon height={30} width={40} />
-            ) : (
-              <BurgerIconWhite height={30} width={40} />
-            )}
-          </BurgerMenuButton>
-          <Liteflix height={60} width={140} />
-          <Fill />
-        </HeaderContent>
-        <OnImageContent>
-          <Fill />
-          <PlayButton>
-            <PlayContainer>
-              <PlayIcon height={30} width={30} />
-              <Spacing isHorizontal size={5} />
-              <Typography color="white" size={20}>
-                Reproducir
-              </Typography>
-            </PlayContainer>
-          </PlayButton>
-          <PlusContainer>
-            <PlusIcon height={20} width={20} />
-          </PlusContainer>
-        </OnImageContent>
-
-        <ComingSoonSectionContainer>
-          <Typography color="white" size={22}>
-            Próximamente
-          </Typography>
-          <Spacing size={5} />
-          <FlatList
-            data={films.results.splice(0, 4)}
-            ItemSeparatorComponent={renderSeparator}
-            keyExtractor={getKeyExtractor}
-            renderItem={renderComingSoonItem}
-          />
-        </ComingSoonSectionContainer>
-        <PopulateSectionContainer>
-          <Typography color="white" size={22}>
-            Populares DE LITEFLIX
-          </Typography>
-          <Spacing size={5} />
-          <FlatList
-            data={films.results.splice(0, 4)}
-            ItemSeparatorComponent={renderSeparator}
-            keyExtractor={getKeyExtractor}
-            numColumns={2}
-            renderItem={renderPopulateItem}
-            columnWrapperStyle={NativeStyles.columnFlatList}
-          />
-        </PopulateSectionContainer>
-      </ScrollContent>
+      <FlatList
+        data={films.results.splice(0, 4)}
+        ItemSeparatorComponent={renderSeparator.bind(null, 5)}
+        ListFooterComponent={renderFooter}
+        ListFooterComponentStyle={NativeStyles.footerFlatList}
+        ListHeaderComponent={renderHeader}
+        keyExtractor={getKeyExtractor}
+        renderItem={renderComingSoonItem}
+      />
     </Container>
   );
 }
