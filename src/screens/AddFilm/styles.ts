@@ -34,7 +34,7 @@ export const Field = styled(TextInput)({
   height: 40,
   paddingHorizontal: 10,
 });
-export const FieldContainer = styled(View)({ alignSelf: 'center', width: '75%' });
+export const FieldContainer = styled(View)({ alignSelf: 'center', marginTop: 20, width: '75%' });
 
 export const NativeStyles = StyleSheet.create({
   addFilm: { width: '70%' },
@@ -46,7 +46,7 @@ export const PictureContainer = styled(TouchableOpacity)({
   borderRadius: 10,
   height: '45%',
   justifyContent: 'center',
-  marginVertical: '10%',
+  marginTop: '10%',
   width: '75%',
 });
 

@@ -79,6 +79,10 @@ function AddFilm() {
                     <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
                   )}
                 </PictureContainer>
+                {touched.title && !movieImage && (
+                  <ErrorMessageForm title="Cargue una foto para agregar su película." />
+                )}
+
                 <FieldContainer>
                   <Field
                     onChangeText={handleChange('title')}
