@@ -1,5 +1,5 @@
 // REACT
-import { Image, SafeAreaView, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -27,6 +27,13 @@ export const DataContainer = styled(View)({
   width: '100%',
 });
 
+export const Field = styled(TextInput)({
+  backgroundColor: theme.colors.mineShaft2,
+  borderRadius: 4,
+  color: theme.colors.white,
+  height: 40,
+  paddingHorizontal: 10,
+});
 export const FieldContainer = styled(View)({ alignSelf: 'center', width: '75%' });
 
 export const NativeStyles = StyleSheet.create({
