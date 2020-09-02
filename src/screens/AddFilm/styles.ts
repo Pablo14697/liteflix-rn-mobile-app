@@ -27,17 +27,6 @@ export const DataContainer = styled(View)({
   width: '100%',
 });
 
-export const EditIconContainer = styled(View)({
-  alignItems: 'center',
-  backgroundColor: theme.colors.white,
-  borderRadius: 20,
-  flexDirection: 'row',
-  height: 40,
-  justifyContent: 'center',
-  position: 'absolute',
-  width: 40,
-});
-
 export const FieldContainer = styled(View)({ alignSelf: 'center', width: '75%' });
 
 export const NativeStyles = StyleSheet.create({

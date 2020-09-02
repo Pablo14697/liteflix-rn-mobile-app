@@ -12,7 +12,6 @@ import {
   AddFilmContent,
   Container,
   DataContainer,
-  EditIconContainer,
   FieldContainer,
   NativeStyles,
   PictureContainer,
@@ -23,7 +22,7 @@ import {
 import { reduxForm } from 'redux-form';
 
 // ASSETS
-import { CineIcon, PlusIcon } from '../../assets/images';
+import { CineIcon } from '../../assets/images';
 
 interface FormValues {
   title: string;
@@ -34,7 +33,7 @@ interface Props {
 }
 
 function AddFilm(props: Props) {
-  //  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [movieImage, setMovieImage] = useState('');
 
   const getImage = () =>
@@ -64,12 +63,7 @@ function AddFilm(props: Props) {
             {movieImage ? (
               <PostImage resizeMode="cover" source={{ uri: movieImage }} />
             ) : (
-              <>
-                <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
-                <EditIconContainer>
-                  <PlusIcon height={25} width={25} />
-                </EditIconContainer>
-              </>
+              <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
             )}
           </PictureContainer>
           <FieldContainer>
