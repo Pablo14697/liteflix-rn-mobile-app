@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
 // CUSTOM COMPONENTS
-import { Spacing, Typography } from '../../components';
+import { Spacing, Typography, AddFilmButton } from '../../components';
 
 // NAVIGATION
 import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
@@ -15,7 +15,6 @@ import { Home } from '../../screens';
 
 // STYLES
 import {
-  AddMovieButton,
   BadgeDot,
   BellContainer,
   BurgerMenuButton,
@@ -32,7 +31,7 @@ import {
 } from './styles';
 
 // ASSETS
-import { BellIcon, BurgerIconWhite, Liteflix, LiteboxIcon, PlusIcon } from '../../assets/images';
+import { BellIcon, BurgerIconWhite, Liteflix, LiteboxIcon } from '../../assets/images';
 
 const Drawer = createDrawerNavigator();
 const { Screen } = createStackNavigator();
@@ -88,13 +87,7 @@ function CustomDrawerContent(props: any) {
             </Typography>
           </NewsOptionButton>
         ))}
-        <AddMovieButton onPress={goToAddFilm}>
-          <PlusIcon height={20} width={20} />
-          <Spacing isHorizontal size={5} />
-          <Typography color="white" size={20}>
-            Agregar película
-          </Typography>
-        </AddMovieButton>
+        <AddFilmButton onPress={goToAddFilm} />
         <LogOutButton>
           <Typography color="white" size={20}>
             Log out

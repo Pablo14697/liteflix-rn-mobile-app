@@ -7,17 +7,6 @@ import styled from 'styled-components';
 // UTILS
 import { theme } from '../../utils';
 
-export const AddMovieButton = styled(TouchableOpacity)({
-  alignItems: 'center',
-  backgroundColor: theme.colors.red,
-  borderRadius: 30,
-  flexDirection: 'row',
-  height: 55,
-  justifyContent: 'center',
-  marginHorizontal: 25,
-  marginVertical: '5%',
-});
-
 export const BadgeDot = styled(View)({
   backgroundColor: theme.colors.red,
   borderRadius: 5,

@@ -93,17 +93,16 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
     </PopupalateFilmButton>
   );
   const renderSeparator = () => <Spacing size={5} />;
-
-  useEffect(() => {
-    getComingSoonFilms();
-  }, []);
-
+  const getKeyExtractor = (item: FilmsResults) => String(item.id);
   const poster =
     films.results &&
     films.results.length > 0 &&
     films.results[0].poster_path.length > 0 &&
     films.results[0].poster_path;
 
+  useEffect(() => {
+    getComingSoonFilms();
+  }, []);
   return (
     <Container>
       <StatusBar barStyle="light-content" />
@@ -154,6 +153,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           <FlatList
             data={films.results.splice(0, 4)}
             ItemSeparatorComponent={renderSeparator}
+            keyExtractor={getKeyExtractor}
             renderItem={renderComingSoonItem}
           />
         </ComingSoonSectionContainer>
@@ -165,6 +165,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
           <FlatList
             data={films.results.splice(0, 4)}
             ItemSeparatorComponent={renderSeparator}
+            keyExtractor={getKeyExtractor}
             numColumns={2}
             renderItem={renderPopulateItem}
             columnWrapperStyle={NativeStyles.columnFlatList}
