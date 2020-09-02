@@ -3,6 +3,8 @@ export { default as ArrowBack } from './icons/arrow-back.svg';
 export { default as BellIcon } from './icons/bell.svg';
 export { default as BurgerIcon } from './icons/menu.svg';
 export { default as BurgerIconWhite } from './icons/menu-white.svg';
+export { default as CineIcon } from './icons/cine.svg';
+export { default as EditIcon } from './icons/edit.svg';
 export { default as PlayIcon } from './icons/play.svg';
 export { default as PlusIcon } from './icons/plus.svg';
 

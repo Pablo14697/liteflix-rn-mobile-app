@@ -2,13 +2,24 @@
 import React from 'react';
 
 // COMPONENTS
-import { AddFilmButton, Header, InputForm, Typography } from '../../components';
+import { AddFilmButton, Header, InputForm, Spacing } from '../../components';
 
 // STYLES
-import { Container, FieldContainer, NativeStyles } from './styles';
+import {
+  AddFilmContent,
+  Container,
+  DataContainer,
+  EditIconContainer,
+  FieldContainer,
+  NativeStyles,
+  PictureContainer,
+} from './styles';
 
 // REDUX
 import { reduxForm } from 'redux-form';
+
+// ASSETS
+import { CineIcon, EditIcon } from '../../assets/images';
 
 interface FormValues {
   title: string;
@@ -26,19 +37,27 @@ function AddFilm(props: Props) {
   return (
     <Container>
       <Header title="AÑADIR PELÍCULA" />
-      <FieldContainer>
-        <Typography color="white" size={16}>
-          Título
-        </Typography>
-        <InputForm name="title" placeholder="Título de la película." />
-      </FieldContainer>
-      <AddFilmButton
-        height={40}
-        onPress={handleSubmit(getValues)}
-        style={NativeStyles.addFilm}
-        title="AGREGAR"
-        visiblePlusIcon={false}
-      />
+      <AddFilmContent>
+        <DataContainer>
+          <PictureContainer>
+            <CineIcon height={120} width={120} />
+            <Spacing />
+            <EditIconContainer>
+              <EditIcon height={30} width={30} />
+            </EditIconContainer>
+          </PictureContainer>
+          <FieldContainer>
+            <InputForm name="title" placeholder="Título de la película" />
+          </FieldContainer>
+        </DataContainer>
+        <AddFilmButton
+          height={55}
+          onPress={handleSubmit(getValues)}
+          style={NativeStyles.addFilm}
+          title="AGREGAR"
+          visiblePlusIcon={false}
+        />
+      </AddFilmContent>
     </Container>
   );
 }
