@@ -1,5 +1,5 @@
 // REACT
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useEffect, createRef, useState } from 'react';
 import { Alert, FlatList, RefreshControl, StatusBar } from 'react-native';
 
 // LIBS
@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // ASSETS
-import { UpArrow, WarningIcon } from '../../assets/images/';
+import { WarningIcon } from '../../assets/images/';
 
 // STYLES
 import {
@@ -17,12 +17,8 @@ import {
   Container,
   GradientColors,
   NativeStyles,
-  PopularFilmButton,
-  PopularImage,
-  PopularSectionContainer,
   StarringImage,
   TitleContainer,
-  UpArrowContainer,
   WarningContainer,
   WarningIconContainer,
 } from './styles';
@@ -38,7 +34,7 @@ import { setFilms, setFilmsError, setUpdateFlag } from '../../redux/actions/film
 
 // COMPONENTS
 import { LoadingModal, Spacing, Typography } from '../../components';
-import { HeaderMenu, PlayAndPlusButtons, MyMoviesList } from './components';
+import { HeaderMenu, PlayAndPlusButtons, MyMoviesList, PopularList } from './components';
 
 // TYPES
 import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
@@ -153,19 +149,6 @@ function Home({
     );
   };
 
-  const renderPopularItem = ({ item }: { item: FilmsResults }) => {
-    const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
-    return (
-      <PopularFilmButton>
-        <PopularImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
-        <TitleContainer>
-          <Typography color="white" size={20} textAlign="center">
-            {title.toUpperCase()}
-          </Typography>
-        </TitleContainer>
-      </PopularFilmButton>
-    );
-  };
   const renderSeparator = (size: number) => <Spacing size={size} />;
 
   const sendAlert = (text: string) => {
@@ -201,33 +184,7 @@ function Home({
     </>
   );
 
-  const goToTop = () => {
-    flatListRef.current.scrollToOffset({ offset: 0 });
-  };
-
-  const renderPopularFilmsFooter = () => (
-    <UpArrowContainer onPress={goToTop}>
-      <UpArrow height={30} width={30} />
-    </UpArrowContainer>
-  );
-
-  const renderFooter = () => (
-    <PopularSectionContainer>
-      <Typography color="white" size={22}>
-        Populares de Liteflix
-      </Typography>
-      <Spacing size={5} />
-      <FlatList
-        data={films.popular.results}
-        ItemSeparatorComponent={renderSeparator.bind(null, 2)}
-        ListFooterComponent={renderPopularFilmsFooter}
-        keyExtractor={getKeyExtractor}
-        numColumns={2}
-        renderItem={renderPopularItem}
-        columnWrapperStyle={NativeStyles.columnFlatList}
-      />
-    </PopularSectionContainer>
-  );
+  const renderFooter = () => <PopularList data={films.popular.results} flatListRef={flatListRef} />;
 
   const renderWarning = () => (
     <WarningContainer

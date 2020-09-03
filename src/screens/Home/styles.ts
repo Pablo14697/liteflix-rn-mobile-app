@@ -55,18 +55,6 @@ export const NativeStyles = StyleSheet.create({
   },
 });
 
-export const PopularFilmButton = styled(TouchableOpacity)({ width: '49.5%' });
-
-export const PopularImage = styled(Image)({
-  height: 300,
-});
-
-export const PopularSectionContainer = styled(View)({
-  marginTop: 20,
-  paddingHorizontal: 20,
-  width: '100%',
-});
-
 export const StarringImage = styled(ImageBackground)({
   height: 600,
   position: 'absolute',
@@ -85,17 +73,6 @@ export const TitleContainer = styled(View)({
   paddingVertical: 5,
   position: 'absolute',
   top: '45%',
-});
-
-export const UpArrowContainer = styled(TouchableOpacity)({
-  alignItems: 'center',
-  alignSelf: 'center',
-  backgroundColor: theme.colors.white,
-  borderRadius: 25,
-  height: 50,
-  justifyContent: 'center',
-  marginTop: 20,
-  width: 50,
 });
 
 export const WarningContainer = styled(ScrollView)({
