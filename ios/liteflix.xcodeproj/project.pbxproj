@@ -145,7 +145,6 @@
 				04D834217D4310E74BEDDB85 /* Pods-liteflix-liteflixTests.debug.xcconfig */,
 				FA56EA0214B58F90944B0304 /* Pods-liteflix-liteflixTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
