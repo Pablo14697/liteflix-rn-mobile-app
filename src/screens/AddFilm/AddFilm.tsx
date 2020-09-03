@@ -33,6 +33,11 @@ import { theme } from '../../utils';
 import { MY_MOVIES } from '../../utils/constants';
 import { goToPage } from '../../navigation';
 
+// REDUX
+import { setUpdateFlag } from '../../redux/actions/films';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
 interface FormValues {
   title: string;
 }
@@ -42,7 +47,11 @@ interface Movie {
   title: string;
 }
 
-function AddFilm() {
+interface Props {
+  setUpdateFlag: (status: boolean) => void;
+}
+
+function AddFilm({ setUpdateFlag }: Props) {
   const [myMovies, setMyMovies] = useState<Movie[]>([]);
   const [movieImage, setMovieImage] = useState<string>('');
   const [values, setValues] = useState<FormValues>({ title: '' });
@@ -67,8 +76,12 @@ function AddFilm() {
     myMovies.push(newMovie);
     const convertArrayToStringify = JSON.stringify(myMovies);
     await AsyncStorage.setItem(MY_MOVIES, convertArrayToStringify)
-      .then(() => goToPage('Home'))
-      .catch(() =>
+      .then(() => {
+        goToPage('Home');
+        setUpdateFlag(true);
+      })
+      .catch((error) => {
+        console.log('Error uploading post: ', error);
         Alert.alert('Error', 'Algo ha ido mal.', [
           {
             text: 'Reintentar',
@@ -77,8 +90,8 @@ function AddFilm() {
           {
             text: 'Cancelar',
           },
-        ]),
-      )
+        ]);
+      })
       .finally(() => setValues(filmForm));
   };
 
@@ -147,4 +160,12 @@ function AddFilm() {
   );
 }
 
-export default AddFilm;
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setUpdateFlag: (status: boolean) => {
+      dispatch(setUpdateFlag(status));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddFilm);

@@ -45,6 +45,7 @@ import {
   setMyMovies,
   setOutstandingFilms,
   setPopularFilms,
+  setUpdateFlag,
 } from '../../redux/actions/films';
 
 // COMPONENTS
@@ -68,6 +69,8 @@ interface Props {
   setMyMovies: (payload: Movie[]) => void;
   setOutstandingFilms: (payload: Films) => void;
   setPopularFilms: (payload: Films) => void;
+  setUpdateFlag: (status: boolean) => void;
+  updateFlagStatus: boolean;
 }
 
 interface Movie {
@@ -85,6 +88,8 @@ function Home({
   setMyMovies,
   setOutstandingFilms,
   setPopularFilms,
+  setUpdateFlag,
+  updateFlagStatus,
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -261,7 +266,10 @@ function Home({
 
   useEffect(() => {
     getFilms();
-  }, []);
+    if (updateFlagStatus) {
+      setUpdateFlag(false);
+    }
+  }, [updateFlagStatus]);
 
   const poster =
     outstandingFilms.results &&
@@ -269,6 +277,9 @@ function Home({
     outstandingFilms.results[0].poster_path.length > 0 &&
     outstandingFilms.results[0].poster_path;
 
+  console.log('updateFlagStatus', updateFlagStatus);
+
+  console.log('Loading', loading);
   return (
     <Container>
       <StatusBar barStyle="light-content" />
@@ -292,6 +303,7 @@ const mapStateToProps = (state: State) => {
     myMovies: state.films.myMovies,
     outstandingFilms: state.films.outstandingFilms,
     popularFilms: state.films.popularFilms,
+    updateFlagStatus: state.films.updateFlagStatus,
   };
 };
 
@@ -308,6 +320,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     setPopularFilms: (films: Films) => {
       dispatch(setPopularFilms(films));
+    },
+    setUpdateFlag: (status: boolean) => {
+      dispatch(setUpdateFlag(status));
     },
   };
 };
