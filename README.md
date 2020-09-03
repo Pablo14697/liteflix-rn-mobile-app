@@ -2,6 +2,16 @@
 
 Liteflix Mobile App with React Native v0.63.2 - Typescript - Redux.
 
+## Android Screenshots
+![alt text](https://i.ibb.co/YZNXrx0/Screen-Shot-2020-09-03-at-15-14-57.png)
+![alt text](https://i.ibb.co/Sc50FFD/Screen-Shot-2020-09-03-at-15-15-09.png)
+![alt text](https://i.ibb.co/TB5vG6c/Screen-Shot-2020-09-03-at-15-15-05.png)
+
+## iOS Screenshots
+![alt text](https://i.ibb.co/3SV8X8M/Screen-Shot-2020-09-03-at-15-12-56.png)
+![alt text](https://i.ibb.co/PtY8V7w/Screen-Shot-2020-09-03-at-15-13-08.png)
+![alt text](https://i.ibb.co/B3Dx87p/Screen-Shot-2020-09-03-at-15-13-02.png)
+
 ## Getting started
 
 ```
