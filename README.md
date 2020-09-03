@@ -52,5 +52,6 @@ NODE_ENV=dev
 - Image crop picker
 - Linear Gradient
 - React Native SVG
+- Husky
 
 :v: **Enjoy!**
