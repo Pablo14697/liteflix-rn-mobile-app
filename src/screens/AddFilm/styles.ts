@@ -27,6 +27,18 @@ export const DataContainer = styled(View)({
   width: '100%',
 });
 
+export const EditIconContainer = styled(View)({
+  alignItems: 'center',
+  backgroundColor: theme.colors.mineShaft2,
+  borderRadius: 10,
+  bottom: 5,
+  height: 50,
+  justifyContent: 'center',
+  position: 'absolute',
+  right: 5,
+  width: 50,
+});
+
 export const Field = styled(TextInput)({
   backgroundColor: theme.colors.mineShaft2,
   borderRadius: 4,

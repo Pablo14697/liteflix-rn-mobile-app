@@ -1,7 +1,7 @@
-import { FILMS_DATA, FILMS_DATA_ERROR, UPDATE_FLAG } from './types';
+import { FILMS_DATA, FILMS_DATA_ERROR } from './types';
 
 export interface SetFilmsAction {
-  type: typeof FILMS_DATA | typeof UPDATE_FLAG | typeof FILMS_DATA_ERROR;
+  type: typeof FILMS_DATA | typeof FILMS_DATA_ERROR;
   payload: object;
   error: boolean;
 }
@@ -12,8 +12,4 @@ export function setFilms(payload: any) {
 
 export function setFilmsError(status: any) {
   return { type: FILMS_DATA_ERROR, payload: status };
-}
-
-export function setUpdateFlag(status: boolean) {
-  return { type: UPDATE_FLAG, error: status };
 }

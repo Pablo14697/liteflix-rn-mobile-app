@@ -30,7 +30,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
-import { setFilms, setFilmsError, setUpdateFlag } from '../../redux/actions/films';
+import { setFilms, setFilmsError } from '../../redux/actions/films';
 
 // COMPONENTS
 import { LoadingModal, Spacing, Typography } from '../../components';
@@ -49,8 +49,6 @@ interface Props {
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
   setFilms: (payload: SetOfFilms) => void;
   setFilmsError: (status: boolean) => void;
-  setUpdateFlag: (status: boolean) => void;
-  updateFlagStatus: boolean;
 }
 
 interface Movie {
@@ -60,15 +58,7 @@ interface Movie {
 
 const flatListRef: any = createRef();
 
-function Home({
-  films,
-  filmsError,
-  navigation,
-  setFilms,
-  setFilmsError,
-  setUpdateFlag,
-  updateFlagStatus,
-}: Props) {
+function Home({ films, filmsError, navigation, setFilms, setFilmsError }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
@@ -215,10 +205,7 @@ function Home({
 
   useEffect(() => {
     getFilms();
-    if (updateFlagStatus) {
-      setUpdateFlag(false);
-    }
-  }, [updateFlagStatus]);
+  }, []);
 
   const poster =
     films.outstanding.results &&
@@ -255,7 +242,6 @@ const mapStateToProps = (state: State) => {
   return {
     films: state.films.films,
     filmsError: state.films.error,
-    updateFlagStatus: state.films.updateFlagStatus,
   };
 };
 
@@ -266,9 +252,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     setFilmsError: (status: boolean) => {
       dispatch(setFilmsError(status));
-    },
-    setUpdateFlag: (status: boolean) => {
-      dispatch(setUpdateFlag(status));
     },
   };
 };

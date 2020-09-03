@@ -21,6 +21,7 @@ import {
   AddFilmContent,
   Container,
   DataContainer,
+  EditIconContainer,
   Field,
   FieldContainer,
   NativeStyles,
@@ -29,16 +30,11 @@ import {
 } from './styles';
 
 // ASSETS
-import { CineIcon } from '../../assets/images';
+import { CineIcon, EditIcon } from '../../assets/images';
 
 // UTILS
 import { theme } from '../../utils';
 import { MY_MOVIES } from '../../utils/constants';
-
-// REDUX
-import { setUpdateFlag } from '../../redux/actions/films';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
 
 interface FormValues {
   title: string;
@@ -49,11 +45,7 @@ interface Movie {
   title: string;
 }
 
-interface Props {
-  setUpdateFlag: (status: boolean) => void;
-}
-
-function AddFilm({ setUpdateFlag }: Props) {
+function AddFilm() {
   const [myMovies, setMyMovies] = useState<Movie[]>([]);
   const [movieImage, setMovieImage] = useState<string>('');
   const [values, setValues] = useState<FormValues>({ title: '' });
@@ -80,7 +72,6 @@ function AddFilm({ setUpdateFlag }: Props) {
     await AsyncStorage.setItem(MY_MOVIES, convertArrayToStringify)
       .then(() => {
         resetStack('Main');
-        setUpdateFlag(true);
       })
       .catch((error) => {
         console.log('Error uploading post: ', error);
@@ -129,8 +120,11 @@ function AddFilm({ setUpdateFlag }: Props) {
                   {movieImage ? (
                     <PostImage resizeMode="cover" source={{ uri: movieImage }} />
                   ) : (
-                    <CineIcon height={120} width={120} style={{ opacity: 0.4 }} />
+                    <CineIcon height={120} width={120} style={{ opacity: 0.3 }} />
                   )}
+                  <EditIconContainer>
+                    <EditIcon height={30} width={30} />
+                  </EditIconContainer>
                 </PictureContainer>
                 {touched.title && !movieImage && (
                   <ErrorMessageForm title="Cargue una foto para agregar su película." />
@@ -162,12 +156,4 @@ function AddFilm({ setUpdateFlag }: Props) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    setUpdateFlag: (status: boolean) => {
-      dispatch(setUpdateFlag(status));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(AddFilm);
+export default AddFilm;

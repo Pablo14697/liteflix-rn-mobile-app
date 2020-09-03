@@ -1,4 +1,4 @@
-import { FILMS_DATA, FILMS_DATA_ERROR, UPDATE_FLAG } from '../actions/types';
+import { FILMS_DATA, FILMS_DATA_ERROR } from '../actions/types';
 import { SetFilmsAction } from '../actions/films';
 
 export type FilmsResults = {
@@ -41,7 +41,6 @@ export type SetOfFilms = {
 export interface FilmsState {
   error: boolean;
   films: SetOfFilms;
-  updateFlagStatus: boolean;
 }
 
 const initialFilms = {
@@ -62,7 +61,6 @@ const initialState: FilmsState = {
     outstanding: initialFilms,
     popular: initialFilms,
   },
-  updateFlagStatus: false,
 };
 
 function films(state: FilmsState = initialState, action: SetFilmsAction) {
@@ -71,8 +69,7 @@ function films(state: FilmsState = initialState, action: SetFilmsAction) {
       return { ...state, error: false, films: action.payload };
     case FILMS_DATA_ERROR:
       return { ...state, error: action.payload };
-    case UPDATE_FLAG:
-      return { ...state, updateFlagStatus: action.payload };
+
     default:
       return state;
   }
