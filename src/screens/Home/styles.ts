@@ -110,11 +110,11 @@ export const PlusContainer = styled(TouchableOpacity)({
 
 export const PopupalateFilmButton = styled(TouchableOpacity)({ width: '49.5%' });
 
-export const PopulateImage = styled(Image)({
+export const PopularImage = styled(Image)({
   height: 300,
 });
 
-export const PopulateSectionContainer = styled(View)({
+export const PopularSectionContainer = styled(View)({
   marginTop: 20,
   paddingHorizontal: 20,
   width: '100%',

@@ -27,8 +27,8 @@ import {
   PlayContainer,
   PlusContainer,
   PopupalateFilmButton,
-  PopulateImage,
-  PopulateSectionContainer,
+  PopularImage,
+  PopularSectionContainer,
   StarringImage,
   TitleContainer,
 } from './styles';
@@ -167,11 +167,11 @@ function Home({
     );
   };
 
-  const renderPopulateItem = ({ item }: { item: FilmsResults }) => {
+  const renderPopularItem = ({ item }: { item: FilmsResults }) => {
     const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
     return (
       <PopupalateFilmButton>
-        <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
+        <PopularImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
         <TitleContainer>
           <Typography color="white" size={20} textAlign="center">
             {title.toUpperCase()}
@@ -248,7 +248,7 @@ function Home({
   );
 
   const renderFooter = () => (
-    <PopulateSectionContainer>
+    <PopularSectionContainer>
       <Typography color="white" size={22}>
         Populares DE LITEFLIX
       </Typography>
@@ -258,10 +258,10 @@ function Home({
         ItemSeparatorComponent={renderSeparator.bind(null, 2)}
         keyExtractor={getKeyExtractor}
         numColumns={2}
-        renderItem={renderPopulateItem}
+        renderItem={renderPopularItem}
         columnWrapperStyle={NativeStyles.columnFlatList}
       />
-    </PopulateSectionContainer>
+    </PopularSectionContainer>
   );
 
   useEffect(() => {
