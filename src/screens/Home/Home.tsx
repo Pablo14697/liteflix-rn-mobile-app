@@ -1,13 +1,20 @@
 // REACT
 import React, { useEffect, useState } from 'react';
-import { FlatList, StatusBar } from 'react-native';
+import { FlatList, RefreshControl, StatusBar } from 'react-native';
 
 // LIBS
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // ASSETS
-import { BurgerIcon, BurgerIconWhite, Liteflix, PlayIcon, PlusIcon } from '../../assets/images/';
+import {
+  BurgerIcon,
+  BurgerIconWhite,
+  Liteflix,
+  PlayIcon,
+  PlusIcon,
+  WarningIcon,
+} from '../../assets/images/';
 
 // STYLES
 import {
@@ -32,6 +39,8 @@ import {
   PopularSectionContainer,
   StarringImage,
   TitleContainer,
+  WarningContainer,
+  WarningIconContainer,
 } from './styles';
 
 // NAVIGATION
@@ -41,34 +50,24 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
-import {
-  setComingSoonFilms,
-  setMyMovies,
-  setOutstandingFilms,
-  setPopularFilms,
-  setUpdateFlag,
-} from '../../redux/actions/films';
+import { setFilms, setFilmsError, setUpdateFlag } from '../../redux/actions/films';
 
 // COMPONENTS
 import { LoadingModal, Spacing, Typography } from '../../components';
 
 // TYPES
-import { Films, FilmsResults } from '../../redux/reducers/films';
+import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
 
 // UTILS
 import Config from '../../config';
 import { MY_MOVIES } from '../../utils/constants';
 
 interface Props {
-  comingSoonFilms: Films;
-  myMovies: Movie[];
+  films: SetOfFilms;
+  filmsError: boolean;
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
-  outstandingFilms: Films;
-  popularFilms: Films;
-  setComingSoonFilms: (payload: Films) => void;
-  setMyMovies: (payload: Movie[]) => void;
-  setOutstandingFilms: (payload: Films) => void;
-  setPopularFilms: (payload: Films) => void;
+  setFilms: (payload: SetOfFilms) => void;
+  setFilmsError: (status: boolean) => void;
   setUpdateFlag: (status: boolean) => void;
   updateFlagStatus: boolean;
 }
@@ -79,19 +78,16 @@ interface Movie {
 }
 
 function Home({
-  comingSoonFilms,
-  myMovies,
+  films,
+  filmsError,
   navigation,
-  outstandingFilms,
-  popularFilms,
-  setComingSoonFilms,
-  setMyMovies,
-  setOutstandingFilms,
-  setPopularFilms,
+  setFilms,
+  setFilmsError,
   setUpdateFlag,
   updateFlagStatus,
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const openDrawerNavigator = () => {
     navigation.openDrawer();
@@ -107,18 +103,34 @@ function Home({
     return data;
   };
 
-  const getFilms = async () => {
-    setLoading(true);
+  const getFilms = async (refreshControl: boolean = false) => {
+    if (refreshControl) {
+      setRefreshing(true);
+    } else {
+      setLoading(true);
+    }
     const promises = [getComingSoon(), getOutstanding(), getPopular(), getMyMovies()];
     Promise.all(promises)
       .then((results) => {
-        setComingSoonFilms(results[0]);
-        setOutstandingFilms(results[1]);
-        setPopularFilms(results[2]);
-        setMyMovies(results[3]);
+        const films = {
+          comingSoon: results[0],
+          myMovies: results[3],
+          outstanding: results[1],
+          popular: results[2],
+        };
+        setFilms(films);
       })
-      .catch((error) => console.log('Error getting coming soon films on Home screen: ', error));
-    setTimeout(() => setLoading(false), 1000);
+      .catch((error) => {
+        setFilmsError(true);
+        console.log('Error getting coming soon films on Home screen: ', error);
+      });
+    setTimeout(() => {
+      if (refreshControl) {
+        setRefreshing(false);
+      } else {
+        setLoading(false);
+      }
+    }, 1000);
   };
 
   const getMyMovies = async () => {
@@ -199,17 +211,7 @@ function Home({
           style={NativeStyles.linearGradient}
         />
       </StarringImage>
-      <HeaderContent>
-        <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
-          {poster ? (
-            <BurgerIcon height={30} width={40} />
-          ) : (
-            <BurgerIconWhite height={30} width={40} />
-          )}
-        </BurgerMenuButton>
-        <Liteflix height={60} width={140} />
-        <Fill />
-      </HeaderContent>
+      {renderHeaderMenu()}
       <OnImageContent>
         <Fill />
         <PlayButton>
@@ -225,14 +227,14 @@ function Home({
           <PlusIcon height={20} width={20} />
         </PlusContainer>
       </OnImageContent>
-      {myMovies.length > 0 && (
+      {films.myMovies.length > 0 && (
         <MyMoviesContainer>
           <Typography color="white" size={22}>
             Mis películas
           </Typography>
           <Spacing size={5} />
           <FlatList
-            data={myMovies}
+            data={films.myMovies}
             keyExtractor={getMyMoviesKeyExtractor}
             ItemSeparatorComponent={renderSeparator.bind(null, 5)}
             renderItem={renderMyMoviesItem}
@@ -240,7 +242,7 @@ function Home({
         </MyMoviesContainer>
       )}
 
-      <ComingSoonSectionContainer isMarginTop={myMovies.length === 0}>
+      <ComingSoonSectionContainer isMarginTop={films.myMovies.length === 0}>
         <Typography color="white" size={22}>
           Próximamente
         </Typography>
@@ -256,7 +258,7 @@ function Home({
       </Typography>
       <Spacing size={5} />
       <FlatList
-        data={popularFilms.results}
+        data={films.popular.results}
         ItemSeparatorComponent={renderSeparator.bind(null, 2)}
         keyExtractor={getKeyExtractor}
         numColumns={2}
@@ -264,6 +266,37 @@ function Home({
         columnWrapperStyle={NativeStyles.columnFlatList}
       />
     </PopularSectionContainer>
+  );
+
+  const renderHeaderMenu = (colorBurgerButton: 'black' | 'white' = 'black') => (
+    <HeaderContent>
+      <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
+        {poster && colorBurgerButton === 'black' ? (
+          <BurgerIcon height={30} width={40} />
+        ) : (
+          <BurgerIconWhite height={30} width={40} />
+        )}
+      </BurgerMenuButton>
+      <Liteflix height={60} width={140} />
+      <Fill />
+    </HeaderContent>
+  );
+
+  const renderWarning = () => (
+    <WarningContainer
+      contentContainerStyle={NativeStyles.warningScrollView}
+      refreshControl={
+        <RefreshControl onRefresh={getFilms.bind(null, true)} refreshing={refreshing} />
+      }>
+      {renderHeaderMenu('white')}
+      <WarningIconContainer>
+        <WarningIcon height={100} width={100} style={{ top: '30%' }} />
+        <Spacing size={40} />
+        <Typography color="white" size={18} textAlign="center">
+          Algo ha ido mal, arrastre para refrescar
+        </Typography>
+      </WarningIconContainer>
+    </WarningContainer>
   );
 
   useEffect(() => {
@@ -274,23 +307,35 @@ function Home({
   }, [updateFlagStatus]);
 
   const poster =
-    outstandingFilms.results &&
-    outstandingFilms.results.length > 0 &&
-    outstandingFilms.results[0].poster_path.length > 0 &&
-    outstandingFilms.results[0].poster_path;
+    films.outstanding.results &&
+    films.outstanding.results.length > 0 &&
+    films.outstanding.results[0].poster_path.length > 0 &&
+    films.outstanding.results[0].poster_path;
+
+  const isMissingSomeFilmData =
+    films.comingSoon.results.length === 0 ||
+    films.outstanding.results.length === 0 ||
+    films.popular.results.length === 0;
 
   return (
     <Container>
       <StatusBar barStyle="light-content" />
-      <FlatList
-        data={comingSoonFilms.results}
-        ItemSeparatorComponent={renderSeparator.bind(null, 5)}
-        ListFooterComponent={renderFooter}
-        ListFooterComponentStyle={NativeStyles.footerFlatList}
-        ListHeaderComponent={renderHeader}
-        keyExtractor={getKeyExtractor}
-        renderItem={renderComingSoonItem}
-      />
+      {filmsError || isMissingSomeFilmData ? (
+        renderWarning()
+      ) : (
+        <FlatList
+          data={films.comingSoon.results}
+          ItemSeparatorComponent={renderSeparator.bind(null, 5)}
+          ListFooterComponent={renderFooter}
+          ListFooterComponentStyle={NativeStyles.footerFlatList}
+          ListHeaderComponent={renderHeader}
+          keyExtractor={getKeyExtractor}
+          refreshControl={
+            <RefreshControl onRefresh={getFilms.bind(null, true)} refreshing={refreshing} />
+          }
+          renderItem={renderComingSoonItem}
+        />
+      )}
       <LoadingModal visible={loading} />
     </Container>
   );
@@ -298,27 +343,19 @@ function Home({
 
 const mapStateToProps = (state: State) => {
   return {
-    comingSoonFilms: state.films.comingSoonFilms,
-    myMovies: state.films.myMovies,
-    outstandingFilms: state.films.outstandingFilms,
-    popularFilms: state.films.popularFilms,
+    films: state.films.films,
+    filmsError: state.films.error,
     updateFlagStatus: state.films.updateFlagStatus,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setComingSoonFilms: (films: Films) => {
-      dispatch(setComingSoonFilms(films));
+    setFilms: (films: SetOfFilms) => {
+      dispatch(setFilms(films));
     },
-    setMyMovies: (films: Movie[]) => {
-      dispatch(setMyMovies(films));
-    },
-    setOutstandingFilms: (films: Films) => {
-      dispatch(setOutstandingFilms(films));
-    },
-    setPopularFilms: (films: Films) => {
-      dispatch(setPopularFilms(films));
+    setFilmsError: (status: boolean) => {
+      dispatch(setFilmsError(status));
     },
     setUpdateFlag: (status: boolean) => {
       dispatch(setUpdateFlag(status));

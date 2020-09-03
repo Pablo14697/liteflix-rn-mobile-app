@@ -1,38 +1,19 @@
-import {
-  COMING_SOON_DATA,
-  MY_MOVIES_DATA,
-  OUTSTANDING_DATA,
-  POPULAR_DATA,
-  UPDATE_FLAG,
-} from './types';
+import { FILMS_DATA, FILMS_DATA_ERROR, UPDATE_FLAG } from './types';
 
 export interface SetFilmsAction {
-  type:
-    | typeof COMING_SOON_DATA
-    | typeof MY_MOVIES_DATA
-    | typeof OUTSTANDING_DATA
-    | typeof POPULAR_DATA
-    | typeof UPDATE_FLAG;
+  type: typeof FILMS_DATA | typeof UPDATE_FLAG | typeof FILMS_DATA_ERROR;
   payload: object;
   error: boolean;
 }
 
-export function setComingSoonFilms(payload: any) {
-  return { type: COMING_SOON_DATA, payload };
+export function setFilms(payload: any) {
+  return { type: FILMS_DATA, payload };
 }
 
-export function setMyMovies(payload: any) {
-  return { type: MY_MOVIES_DATA, payload };
-}
-
-export function setOutstandingFilms(payload: any) {
-  return { type: OUTSTANDING_DATA, payload };
-}
-
-export function setPopularFilms(payload: any) {
-  return { type: POPULAR_DATA, payload };
+export function setFilmsError(status: any) {
+  return { type: FILMS_DATA_ERROR, payload: status };
 }
 
 export function setUpdateFlag(status: boolean) {
-  return { type: UPDATE_FLAG, payload: status };
+  return { type: UPDATE_FLAG, error: status };
 }

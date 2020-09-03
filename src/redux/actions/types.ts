@@ -1,4 +1,6 @@
 export const COMING_SOON_DATA = 'COMING_SOON_API_URL';
+export const FILMS_DATA = 'FILMS_DATA';
+export const FILMS_DATA_ERROR = 'FILMS_DATA_ERROR';
 export const MY_MOVIES_DATA = 'MY_MOVIES_DATA';
 export const OUTSTANDING_DATA = 'OUTSTANDING_DATA';
 export const POPULAR_DATA = 'POPULAR_DATA';

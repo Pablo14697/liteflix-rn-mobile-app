@@ -1,10 +1,4 @@
-import {
-  COMING_SOON_DATA,
-  MY_MOVIES_DATA,
-  OUTSTANDING_DATA,
-  POPULAR_DATA,
-  UPDATE_FLAG,
-} from '../actions/types';
+import { FILMS_DATA, FILMS_DATA_ERROR, UPDATE_FLAG } from '../actions/types';
 import { SetFilmsAction } from '../actions/films';
 
 export type FilmsResults = {
@@ -37,11 +31,16 @@ export type Films = {
   total_results: number;
 };
 
-export interface FilmsState {
-  comingSoonFilms: Films;
+export type SetOfFilms = {
+  comingSoon: Films;
   myMovies: Movie[];
-  outstandingFilms: Films;
-  popularFilms: Films;
+  outstanding: Films;
+  popular: Films;
+};
+
+export interface FilmsState {
+  error: boolean;
+  films: SetOfFilms;
   updateFlagStatus: boolean;
 }
 
@@ -70,24 +69,25 @@ const initialFilms = {
   total_results: 0,
 };
 
+const initialMyMovies: Movie[] = [];
+
 const initialState: FilmsState = {
-  comingSoonFilms: initialFilms,
-  myMovies: [],
-  outstandingFilms: initialFilms,
-  popularFilms: initialFilms,
+  error: false,
+  films: {
+    comingSoon: initialFilms,
+    myMovies: initialMyMovies,
+    outstanding: initialFilms,
+    popular: initialFilms,
+  },
   updateFlagStatus: false,
 };
 
 function films(state: FilmsState = initialState, action: SetFilmsAction) {
   switch (action.type) {
-    case COMING_SOON_DATA:
-      return { ...state, comingSoonFilms: action.payload };
-    case MY_MOVIES_DATA:
-      return { ...state, myMovies: action.payload };
-    case OUTSTANDING_DATA:
-      return { ...state, outstandingFilms: action.payload };
-    case POPULAR_DATA:
-      return { ...state, popularFilms: action.payload };
+    case FILMS_DATA:
+      return { ...state, films: action.payload };
+    case FILMS_DATA_ERROR:
+      return { ...state, error: action.error };
     case UPDATE_FLAG:
       return { ...state, updateFlagStatus: action.payload };
     default:

@@ -1,5 +1,12 @@
 // REACT
-import { Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from 'react-native';
 
 // STYLES
 import styled from 'styled-components';
@@ -71,6 +78,13 @@ export const NativeStyles = StyleSheet.create({
   footerFlatList: { width: '100%', marginBottom: '20%' },
   hitSlop: { bottom: 10, left: 10, right: 10, top: 10 },
   linearGradient: { height: '100%', width: '100%' },
+  warningScrollView: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    flex: 1,
+    justifyContent: 'space-between',
+    width: '100%',
+  },
 });
 
 export const OnImageContent = styled(View)({
@@ -138,4 +152,15 @@ export const TitleContainer = styled(View)({
   paddingVertical: 5,
   position: 'absolute',
   top: '45%',
+});
+
+export const WarningContainer = styled(ScrollView)({
+  flex: 1,
+});
+
+export const WarningIconContainer = styled(View)({
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: '50%',
+  width: '55%',
 });
