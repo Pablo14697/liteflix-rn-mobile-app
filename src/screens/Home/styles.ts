@@ -15,6 +15,27 @@ export const Container = styled(View)({
   flex: 1,
 });
 
+export const ComingSoonFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '90%' });
+
+export const ComingSoonImage = styled(Image)({
+  height: 200,
+  width: '100%',
+});
+
+export const ComingSoonSectionContainer = styled(View)(
+  ({ isMarginTop }: { isMarginTop: boolean }) => ({
+    marginTop: isMarginTop ? 80 : 20,
+    paddingHorizontal: 20,
+    width: '100%',
+  }),
+);
+
+export const Fill = styled(View)({
+  flexDirection: 'row',
+  height: 30,
+  width: 40,
+});
+
 export const GradientColors = [
   theme.colors.opacity50Black,
   theme.colors.opacity0Black,
@@ -32,10 +53,17 @@ export const HeaderContent = styled(View)({
   width: '90%',
 });
 
-export const Fill = styled(View)({
-  flexDirection: 'row',
-  height: 30,
-  width: 40,
+export const MyMovieFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '100%' });
+
+export const MyMovieImage = styled(Image)({
+  height: 200,
+  width: '100%',
+});
+
+export const MyMoviesContainer = styled(View)({
+  marginTop: 80,
+  paddingHorizontal: 20,
+  width: '100%',
 });
 
 export const NativeStyles = StyleSheet.create({
@@ -45,46 +73,12 @@ export const NativeStyles = StyleSheet.create({
   linearGradient: { height: '100%', width: '100%' },
 });
 
-export const ComingSoonImage = styled(Image)({
-  height: 200,
-  width: '100%',
-});
-
-export const ComingSoonFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '90%' });
-
-export const ComingSoonSectionContainer = styled(View)(
-  ({ isMarginTop }: { isMarginTop: boolean }) => ({
-    marginTop: isMarginTop ? 80 : 20,
-    paddingHorizontal: 20,
-    width: '100%',
-  }),
-);
-
-export const MyMovieImage = styled(Image)({
-  height: 200,
-  width: '100%',
-});
-
-export const MyMovieFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '100%' });
-
-export const MyMoviesContainer = styled(View)({
-  marginTop: 80,
-  paddingHorizontal: 20,
-  width: '100%',
-});
-
 export const OnImageContent = styled(View)({
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginTop: 380,
   paddingRight: 20,
-});
-
-export const PlayContainer = styled(View)({
-  alignItems: 'center',
-  flexDirection: 'row',
-  justifyContent: 'center',
 });
 
 export const PlayButton = styled(TouchableOpacity)({
@@ -98,6 +92,12 @@ export const PlayButton = styled(TouchableOpacity)({
   width: '50%',
 });
 
+export const PlayContainer = styled(View)({
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'center',
+});
+
 export const PlusContainer = styled(TouchableOpacity)({
   alignItems: 'center',
   borderColor: theme.colors.white,
@@ -108,7 +108,7 @@ export const PlusContainer = styled(TouchableOpacity)({
   width: 40,
 });
 
-export const PopupalateFilmButton = styled(TouchableOpacity)({ width: '49.5%' });
+export const PopularFilmButton = styled(TouchableOpacity)({ width: '49.5%' });
 
 export const PopularImage = styled(Image)({
   height: 300,

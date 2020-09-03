@@ -26,7 +26,7 @@ import {
   PlayButton,
   PlayContainer,
   PlusContainer,
-  PopupalateFilmButton,
+  PopularFilmButton,
   PopularImage,
   PopularSectionContainer,
   StarringImage,
@@ -170,14 +170,14 @@ function Home({
   const renderPopularItem = ({ item }: { item: FilmsResults }) => {
     const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
     return (
-      <PopupalateFilmButton>
+      <PopularFilmButton>
         <PopularImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
         <TitleContainer>
           <Typography color="white" size={20} textAlign="center">
             {title.toUpperCase()}
           </Typography>
         </TitleContainer>
-      </PopupalateFilmButton>
+      </PopularFilmButton>
     );
   };
   const renderSeparator = (size: number) => <Spacing size={size} />;
