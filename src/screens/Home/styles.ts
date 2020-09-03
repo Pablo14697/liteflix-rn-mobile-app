@@ -13,9 +13,6 @@ import styled from 'styled-components';
 
 // UTILS
 import { theme } from '../../utils';
-import { hastNotch } from '../../utils/devices';
-
-export const BurgerMenuButton = styled(TouchableOpacity)({});
 
 export const Container = styled(View)({
   backgroundColor: theme.colors.black,
@@ -49,16 +46,6 @@ export const GradientColors = [
   theme.colors.opacity0Black,
   theme.colors.opacity100Black,
 ];
-
-export const HeaderContent = styled(View)({
-  alignItems: 'center',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  marginHorizontal: 20,
-  marginTop: hastNotch ? '7%' : 0,
-  position: 'absolute',
-  width: '90%',
-});
 
 export const MyMovieFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '100%' });
 

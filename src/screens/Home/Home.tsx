@@ -7,26 +7,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // ASSETS
-import {
-  BurgerIcon,
-  BurgerIconWhite,
-  Liteflix,
-  PlayIcon,
-  PlusIcon,
-  UpArrow,
-  WarningIcon,
-} from '../../assets/images/';
+import { PlayIcon, PlusIcon, UpArrow, WarningIcon } from '../../assets/images/';
 
 // STYLES
 import {
-  BurgerMenuButton,
   ComingSoonFilmButton,
   ComingSoonImage,
   ComingSoonSectionContainer,
   Container,
   Fill,
   GradientColors,
-  HeaderContent,
   MyMovieFilmButton,
   MyMovieImage,
   MyMoviesContainer,
@@ -63,6 +53,7 @@ import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
 // UTILS
 import Config from '../../config';
 import { MY_MOVIES } from '../../utils/constants';
+import { HeaderMenu } from './components';
 
 interface Props {
   films: SetOfFilms;
@@ -92,10 +83,6 @@ function Home({
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-
-  const openDrawerNavigator = () => {
-    navigation.openDrawer();
-  };
 
   const getKeyExtractor = (item: FilmsResults) => String(item.id);
 
@@ -218,7 +205,7 @@ function Home({
           style={NativeStyles.linearGradient}
         />
       </StarringImage>
-      {renderHeaderMenu()}
+      <HeaderMenu navigation={navigation} poster={poster} />
       <OnImageContent>
         <Fill />
         <PlayButton>
@@ -286,27 +273,13 @@ function Home({
     </PopularSectionContainer>
   );
 
-  const renderHeaderMenu = (colorBurgerButton: 'black' | 'white' = 'black') => (
-    <HeaderContent>
-      <BurgerMenuButton hitSlop={NativeStyles.hitSlop} onPress={openDrawerNavigator}>
-        {poster && colorBurgerButton === 'black' ? (
-          <BurgerIcon height={30} width={40} />
-        ) : (
-          <BurgerIconWhite height={30} width={40} />
-        )}
-      </BurgerMenuButton>
-      <Liteflix height={60} width={140} />
-      <Fill />
-    </HeaderContent>
-  );
-
   const renderWarning = () => (
     <WarningContainer
       contentContainerStyle={NativeStyles.warningScrollView}
       refreshControl={
         <RefreshControl onRefresh={getFilms.bind(null, true)} refreshing={refreshing} />
       }>
-      {renderHeaderMenu('white')}
+      <HeaderMenu colorBurgerButton="white" navigation={navigation} poster={poster} />
       <WarningIconContainer>
         <WarningIcon height={100} width={100} style={{ top: '30%' }} />
         <Spacing size={40} />
