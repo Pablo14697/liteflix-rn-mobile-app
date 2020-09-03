@@ -6,6 +6,7 @@ export { default as BurgerIconWhite } from './icons/menu-white.svg';
 export { default as CineIcon } from './icons/cine.svg';
 export { default as PlayIcon } from './icons/play.svg';
 export { default as PlusIcon } from './icons/plus.svg';
+export { default as WarningIcon } from './icons/warning.svg';
 
 // LOGOS
 export { default as Liteflix } from './logos/liteflix.svg';
