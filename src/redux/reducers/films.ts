@@ -1,4 +1,4 @@
-import { COMING_SOON_DATA, OUTSTANDING_DATA, POPULAR_DATA } from '../actions/types';
+import { COMING_SOON_DATA, MY_MOVIES_DATA, OUTSTANDING_DATA, POPULAR_DATA } from '../actions/types';
 import { SetFilmsAction } from '../actions/films';
 
 export type FilmsResults = {
@@ -18,6 +18,11 @@ export type FilmsResults = {
   vote_count: number;
 };
 
+type Movie = {
+  backdrop_path: string;
+  title: string;
+};
+
 export type Films = {
   dates: { maximum: string; minimum: string };
   page: number;
@@ -29,6 +34,7 @@ export interface FilmsState {
   comingSoonFilms: Films;
   error: string;
   loading: boolean;
+  myMovies: Movie[];
   outstandingFilms: Films;
   popularFilms: Films;
 }
@@ -62,6 +68,7 @@ const initialState: FilmsState = {
   comingSoonFilms: initialFilms,
   error: '',
   loading: false,
+  myMovies: [],
   outstandingFilms: initialFilms,
   popularFilms: initialFilms,
 };
@@ -70,6 +77,8 @@ function films(state: FilmsState = initialState, action: SetFilmsAction) {
   switch (action.type) {
     case COMING_SOON_DATA:
       return { ...state, comingSoonFilms: action.payload };
+    case MY_MOVIES_DATA:
+      return { ...state, myMovies: action.payload };
     case OUTSTANDING_DATA:
       return { ...state, outstandingFilms: action.payload };
     case POPULAR_DATA:

@@ -52,6 +52,19 @@ export const ComingSoonImage = styled(Image)({
 export const ComingSoonFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '90%' });
 
 export const ComingSoonSectionContainer = styled(View)({
+  marginTop: 20,
+  paddingHorizontal: 20,
+  width: '100%',
+});
+
+export const MyMovieImage = styled(Image)({
+  height: 200,
+  width: '100%',
+});
+
+export const MyMovieFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '100%' });
+
+export const MyMoviesContainer = styled(View)({
   marginTop: 80,
   paddingHorizontal: 20,
   width: '100%',

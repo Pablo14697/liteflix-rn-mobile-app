@@ -18,6 +18,9 @@ import {
   Fill,
   GradientColors,
   HeaderContent,
+  MyMovieFilmButton,
+  MyMovieImage,
+  MyMoviesContainer,
   NativeStyles,
   OnImageContent,
   PlayButton,
@@ -39,6 +42,7 @@ import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
 import {
   setComingSoonFilms,
+  setMyMovies,
   setOutstandingFilms,
   setPopularFilms,
 } from '../../redux/actions/films';
@@ -51,23 +55,34 @@ import { Films, FilmsResults } from '../../redux/reducers/films';
 
 // UTILS
 import Config from '../../config';
+import AsyncStorage from '@react-native-community/async-storage';
+import { MY_MOVIES } from '../../utils/constants';
 
 interface Props {
   comingSoonFilms: Films;
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
+  myMovies: Movie[];
   outstandingFilms: Films;
   popularFilms: Films;
   setComingSoonFilms: (payload: Films) => void;
+  setMyMovies: (payload: Movie[]) => void;
   setOutstandingFilms: (payload: Films) => void;
   setPopularFilms: (payload: Films) => void;
+}
+
+interface Movie {
+  backdrop_path: string;
+  title: string;
 }
 
 function Home({
   comingSoonFilms,
   navigation,
+  myMovies,
   outstandingFilms,
   popularFilms,
   setComingSoonFilms,
+  setMyMovies,
   setOutstandingFilms,
   setPopularFilms,
 }: Props) {
@@ -76,14 +91,25 @@ function Home({
   };
 
   const getFilms = async () => {
-    const promises = [getComingSoon(), getOutstanding(), getPopular()];
+    const promises = [getComingSoon(), getOutstanding(), getPopular(), getMyMovies()];
     Promise.all(promises)
       .then((results) => {
         setComingSoonFilms(results[0]);
         setOutstandingFilms(results[1]);
         setPopularFilms(results[2]);
+        setMyMovies(results[3]);
       })
       .catch((error) => console.log('Error getting coming soon films on Home screen: ', error));
+  };
+
+  const getMyMovies = async () => {
+    const response = await AsyncStorage.getItem(MY_MOVIES);
+    if (response) {
+      const data = JSON.parse(response);
+      return data;
+    } else {
+      return [];
+    }
   };
 
   const getComingSoon = async () => {
@@ -104,18 +130,36 @@ function Home({
     return data;
   };
 
-  const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
-    <ComingSoonFilmButton>
-      <ComingSoonImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
-      <TitleContainer>
-        <Typography color="white" size={20}>
-          {item.title.toUpperCase()}
-        </Typography>
-      </TitleContainer>
-    </ComingSoonFilmButton>
-  );
+  const renderComingSoonItem = ({ item }: { item: FilmsResults }) => {
+    const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
+    return (
+      <ComingSoonFilmButton>
+        <ComingSoonImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
+        <TitleContainer>
+          <Typography color="white" size={20}>
+            {title.toUpperCase()}
+          </Typography>
+        </TitleContainer>
+      </ComingSoonFilmButton>
+    );
+  };
+
+  const renderMyMoviesItem = ({ item }: { item: Movie }) => {
+    const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
+    return (
+      <MyMovieFilmButton>
+        <MyMovieImage source={{ uri: item.backdrop_path }} />
+        <TitleContainer>
+          <Typography color="white" size={20}>
+            {title.toUpperCase()}
+          </Typography>
+        </TitleContainer>
+      </MyMovieFilmButton>
+    );
+  };
+
   const renderPopulateItem = ({ item }: { item: FilmsResults }) => {
-    const { title } = item;
+    const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
     return (
       <PopupalateFilmButton>
         <PopulateImage source={{ uri: `${Config.IMAGES_API_URL}${item.backdrop_path}` }} />
@@ -129,6 +173,7 @@ function Home({
   };
   const renderSeparator = (size: number) => <Spacing size={size} />;
   const getKeyExtractor = (item: FilmsResults) => String(item.id);
+  const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
 
   const renderHeader = () => (
     <>
@@ -169,6 +214,21 @@ function Home({
           <PlusIcon height={20} width={20} />
         </PlusContainer>
       </OnImageContent>
+      {myMovies.length > 0 && (
+        <MyMoviesContainer>
+          <Typography color="white" size={22}>
+            Mis películas
+          </Typography>
+          <Spacing size={5} />
+          <FlatList
+            data={myMovies}
+            keyExtractor={getMyMoviesKeyExtractor}
+            ItemSeparatorComponent={renderSeparator.bind(null, 5)}
+            renderItem={renderMyMoviesItem}
+          />
+        </MyMoviesContainer>
+      )}
+
       <ComingSoonSectionContainer>
         <Typography color="white" size={22}>
           Próximamente
@@ -224,6 +284,7 @@ function Home({
 const mapStateToProps = (state: State) => {
   return {
     comingSoonFilms: state.films.comingSoonFilms,
+    myMovies: state.films.myMovies,
     outstandingFilms: state.films.outstandingFilms,
     popularFilms: state.films.popularFilms,
   };
@@ -233,6 +294,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setComingSoonFilms: (films: Films) => {
       dispatch(setComingSoonFilms(films));
+    },
+    setMyMovies: (films: Movie[]) => {
+      dispatch(setMyMovies(films));
     },
     setOutstandingFilms: (films: Films) => {
       dispatch(setOutstandingFilms(films));

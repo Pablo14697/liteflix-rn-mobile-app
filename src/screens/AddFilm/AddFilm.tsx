@@ -1,8 +1,9 @@
 // REACT
-import React, { useState } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 // LIBS
+import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 // COMPONENTS
@@ -29,14 +30,22 @@ import { CineIcon } from '../../assets/images';
 
 // UTILS
 import { theme } from '../../utils';
+import { MY_MOVIES } from '../../utils/constants';
+import { goBack } from '../../navigation';
 
 interface FormValues {
   title: string;
 }
 
+interface Movie {
+  backdrop_path: string;
+  title: string;
+}
+
 function AddFilm() {
-  // const [loading, setLoading] = useState(false);
-  const [movieImage, setMovieImage] = useState('');
+  const [myMovies, setMyMovies] = useState<Movie[]>([]);
+  const [movieImage, setMovieImage] = useState<string>('');
+  const [values, setValues] = useState<FormValues>({ title: '' });
 
   const getImage = () =>
     ImagePicker.openPicker({
@@ -51,13 +60,42 @@ function AddFilm() {
         console.log('Error getting image from the photo library on AddFilm screen: ', error),
       );
 
-  const onSaveMovie = (values: FormValues) => {
-    console.log(values);
+  const onSaveMovie = async (filmForm: FormValues) => {
+    const { title } = filmForm;
+    const newMovie = { title, backdrop_path: movieImage };
+
+    myMovies.push(newMovie);
+    const convertArrayToStringify = JSON.stringify(myMovies);
+    await AsyncStorage.setItem(MY_MOVIES, convertArrayToStringify)
+      .then(() => goBack())
+      .catch(() =>
+        Alert.alert('Error', 'Algo ha ido mal.', [
+          {
+            text: 'Reintentar',
+            onPress: () => onSaveMovie(values),
+          },
+          {
+            text: 'Cancelar',
+          },
+        ]),
+      )
+      .finally(() => setValues(filmForm));
   };
 
   const schemaValidacion = Yup.object({
     title: Yup.string().required('El título es requerido.'),
   });
+
+  const getMyMovies = async () => {
+    const MyMoviesStoraged = await AsyncStorage.getItem(MY_MOVIES);
+    if (MyMoviesStoraged) {
+      setMyMovies(JSON.parse(MyMoviesStoraged));
+    }
+  };
+
+  useEffect(() => {
+    getMyMovies();
+  }, []);
 
   return (
     <Container>
