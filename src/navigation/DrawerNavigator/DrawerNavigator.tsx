@@ -3,10 +3,10 @@ import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
 // CUSTOM COMPONENTS
-import { Spacing, Typography, AddFilmButton } from '../../components';
+import { AddFilmButton, Spacing, Typography } from '../../components';
 
 // NAVIGATION
-import { DrawerContentComponentProps, createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { goToPage } from '../RootNavigation';
 
