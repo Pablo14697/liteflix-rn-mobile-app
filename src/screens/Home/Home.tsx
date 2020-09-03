@@ -37,7 +37,11 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from '../../redux/reducers';
-import { setComingSoonFilms } from '../../redux/actions/films';
+import {
+  setComingSoonFilms,
+  setOutstandingFilms,
+  setPopularFilms,
+} from '../../redux/actions/films';
 
 // COMPONENTS
 import { Typography, Spacing } from '../../components';
@@ -49,26 +53,55 @@ import { Films, FilmsResults } from '../../redux/reducers/films';
 import Config from '../../config';
 
 interface Props {
-  films: Films;
+  comingSoonFilms: Films;
   navigation: DrawerNavigationProp<Record<string, object | undefined>>;
+  outstandingFilms: Films;
+  popularFilms: Films;
   setComingSoonFilms: (payload: Films) => void;
+  setOutstandingFilms: (payload: Films) => void;
+  setPopularFilms: (payload: Films) => void;
 }
 
-function Home({ navigation, films, setComingSoonFilms }: Props) {
+function Home({
+  comingSoonFilms,
+  navigation,
+  outstandingFilms,
+  popularFilms,
+  setComingSoonFilms,
+  setOutstandingFilms,
+  setPopularFilms,
+}: Props) {
   const openDrawerNavigator = () => {
     navigation.openDrawer();
   };
 
-  const getComingSoonFilms = async () => {
-    try {
-      const response = await fetch(Config.COMING_SOON_API_URL);
-      const data = await response.json();
-      if (data.results && data.results.length > 0) {
-        setComingSoonFilms(data);
-      }
-    } catch (error) {
-      console.log('Error getting coming soon films on Home screen: ', error);
-    }
+  const getFilms = async () => {
+    const promises = [getComingSoon(), getOutstanding(), getPopular()];
+    Promise.all(promises)
+      .then((results) => {
+        setComingSoonFilms(results[0]);
+        setOutstandingFilms(results[1]);
+        setPopularFilms(results[2]);
+      })
+      .catch((error) => console.log('Error getting coming soon films on Home screen: ', error));
+  };
+
+  const getComingSoon = async () => {
+    const response = await fetch(Config.COMING_SOON_API_URL);
+    const data = await response.json();
+    return data;
+  };
+
+  const getOutstanding = async () => {
+    const response = await fetch(Config.OUTSTANDING_API_URL);
+    const data = await response.json();
+    return data;
+  };
+
+  const getPopular = async () => {
+    const response = await fetch(Config.POPULAR_API_URL);
+    const data = await response.json();
+    return data;
   };
 
   const renderComingSoonItem = ({ item }: { item: FilmsResults }) => (
@@ -152,7 +185,7 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
       </Typography>
       <Spacing size={5} />
       <FlatList
-        data={films.results.splice(0, 4)}
+        data={popularFilms.results}
         ItemSeparatorComponent={renderSeparator.bind(null, 2)}
         keyExtractor={getKeyExtractor}
         numColumns={2}
@@ -163,20 +196,22 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
   );
 
   useEffect(() => {
-    getComingSoonFilms();
+    getFilms();
   }, []);
 
   const poster =
-    films.results &&
-    films.results.length > 0 &&
-    films.results[0].poster_path.length > 0 &&
-    films.results[0].poster_path;
+    outstandingFilms.results &&
+    outstandingFilms.results.length > 0 &&
+    outstandingFilms.results[0].poster_path.length > 0 &&
+    outstandingFilms.results[0].poster_path;
+
+  console.log({ comingSoonFilms, outstandingFilms, popularFilms });
 
   return (
     <Container>
       <StatusBar barStyle="light-content" />
       <FlatList
-        data={films.results.splice(0, 4)}
+        data={comingSoonFilms.results}
         ItemSeparatorComponent={renderSeparator.bind(null, 5)}
         ListFooterComponent={renderFooter}
         ListFooterComponentStyle={NativeStyles.footerFlatList}
@@ -190,7 +225,9 @@ function Home({ navigation, films, setComingSoonFilms }: Props) {
 
 const mapStateToProps = (state: State) => {
   return {
-    films: state.films.films,
+    comingSoonFilms: state.films.comingSoonFilms,
+    outstandingFilms: state.films.outstandingFilms,
+    popularFilms: state.films.popularFilms,
   };
 };
 
@@ -198,6 +235,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     setComingSoonFilms: (films: Films) => {
       dispatch(setComingSoonFilms(films));
+    },
+    setOutstandingFilms: (films: Films) => {
+      dispatch(setOutstandingFilms(films));
+    },
+    setPopularFilms: (films: Films) => {
+      dispatch(setPopularFilms(films));
     },
   };
 };
