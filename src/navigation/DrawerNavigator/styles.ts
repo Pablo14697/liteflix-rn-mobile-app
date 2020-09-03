@@ -72,7 +72,7 @@ export const NameContainer = styled(View)({
 
 export const NewsOptionButton = styled(TouchableOpacity)({ marginVertical: 8 });
 
-export const NewsTitle = styled(View)({
+export const NewsTitle = styled(TouchableOpacity)({
   flexDirection: 'row',
   marginBottom: 5,
   marginTop: 15,
