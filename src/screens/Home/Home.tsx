@@ -102,7 +102,8 @@ function Home({
   const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
 
   const getComingSoon = async () => {
-    const response = await fetch(Config.COMING_SOON_API_URL);
+    const endpoint = `${Config.API_URL}upcoming?api_key=${Config.MOVIE_DB_API_KEY}`;
+    const response = await fetch(endpoint);
     const data = await response.json();
     return data;
   };
@@ -148,13 +149,15 @@ function Home({
   };
 
   const getOutstanding = async () => {
-    const response = await fetch(Config.OUTSTANDING_API_URL);
+    const endpoint = `${Config.API_URL}now_playing?api_key=${Config.MOVIE_DB_API_KEY}`;
+    const response = await fetch(endpoint);
     const data = await response.json();
     return data;
   };
 
   const getPopular = async () => {
-    const response = await fetch(Config.POPULAR_API_URL);
+    const endpoint = `${Config.API_URL}popular?api_key=${Config.MOVIE_DB_API_KEY}`;
+    const response = await fetch(endpoint);
     const data = await response.json();
     return data;
   };
