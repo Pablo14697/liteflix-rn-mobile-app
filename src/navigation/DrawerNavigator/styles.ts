@@ -45,7 +45,7 @@ export const HeaderContent = styled(View)({
 });
 
 export const Line = styled(View)({
-  borderColor: 'rgba(255,255,255,0.2)',
+  borderColor: theme.colors.opacity20White,
   borderWidth: 0.5,
   width: '90%',
 });

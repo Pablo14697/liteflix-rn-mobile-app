@@ -43,7 +43,7 @@ export const NativeStyles = StyleSheet.create({
 
 export const PictureContainer = styled(TouchableOpacity)({
   alignItems: 'center',
-  backgroundColor: 'rgba(255,255,255,0.75)',
+  backgroundColor: theme.colors.opacity75White,
   borderRadius: 10,
   height: '45%',
   justifyContent: 'center',
