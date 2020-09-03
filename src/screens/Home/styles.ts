@@ -154,6 +154,17 @@ export const TitleContainer = styled(View)({
   top: '45%',
 });
 
+export const UpArrowContainer = styled(TouchableOpacity)({
+  alignItems: 'center',
+  alignSelf: 'center',
+  backgroundColor: theme.colors.white,
+  borderRadius: 25,
+  height: 50,
+  justifyContent: 'center',
+  marginTop: 20,
+  width: 50,
+});
+
 export const WarningContainer = styled(ScrollView)({
   flex: 1,
 });

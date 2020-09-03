@@ -1,5 +1,5 @@
 // REACT
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { FlatList, RefreshControl, StatusBar } from 'react-native';
 
 // LIBS
@@ -13,6 +13,7 @@ import {
   Liteflix,
   PlayIcon,
   PlusIcon,
+  UpArrow,
   WarningIcon,
 } from '../../assets/images/';
 
@@ -39,6 +40,7 @@ import {
   PopularSectionContainer,
   StarringImage,
   TitleContainer,
+  UpArrowContainer,
   WarningContainer,
   WarningIconContainer,
 } from './styles';
@@ -76,6 +78,8 @@ interface Movie {
   backdrop_path: string;
   title: string;
 }
+
+const flatListRef: any = createRef();
 
 function Home({
   films,
@@ -251,6 +255,16 @@ function Home({
     </>
   );
 
+  const goToTop = () => {
+    flatListRef.current.scrollToOffset({ offset: 0 });
+  };
+
+  const renderPopularFilmsFooter = () => (
+    <UpArrowContainer onPress={goToTop}>
+      <UpArrow height={30} width={30} />
+    </UpArrowContainer>
+  );
+
   const renderFooter = () => (
     <PopularSectionContainer>
       <Typography color="white" size={22}>
@@ -260,6 +274,7 @@ function Home({
       <FlatList
         data={films.popular.results}
         ItemSeparatorComponent={renderSeparator.bind(null, 2)}
+        ListFooterComponent={renderPopularFilmsFooter}
         keyExtractor={getKeyExtractor}
         numColumns={2}
         renderItem={renderPopularItem}
@@ -305,6 +320,7 @@ function Home({
       setUpdateFlag(false);
     }
   }, [updateFlagStatus]);
+
   const poster =
     films.outstanding.results &&
     films.outstanding.results.length > 0 &&
@@ -329,6 +345,7 @@ function Home({
           ListFooterComponentStyle={NativeStyles.footerFlatList}
           ListHeaderComponent={renderHeader}
           keyExtractor={getKeyExtractor}
+          ref={flatListRef}
           refreshControl={
             <RefreshControl onRefresh={getFilms.bind(null, true)} refreshing={refreshing} />
           }
