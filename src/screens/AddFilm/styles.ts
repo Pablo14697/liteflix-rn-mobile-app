@@ -34,6 +34,7 @@ export const Field = styled(TextInput)({
   height: 40,
   paddingHorizontal: 10,
 });
+
 export const FieldContainer = styled(View)({ alignSelf: 'center', marginTop: 20, width: '75%' });
 
 export const NativeStyles = StyleSheet.create({
