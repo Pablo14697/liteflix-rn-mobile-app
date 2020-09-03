@@ -34,6 +34,5 @@ export function setPopularFilms(payload: any) {
 }
 
 export function setUpdateFlag(status: boolean) {
-  console.log('ACTION', status);
   return { type: UPDATE_FLAG, payload: status };
 }

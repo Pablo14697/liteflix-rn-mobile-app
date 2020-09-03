@@ -79,7 +79,6 @@ const initialState: FilmsState = {
 };
 
 function films(state: FilmsState = initialState, action: SetFilmsAction) {
-  console.log('action', action);
   switch (action.type) {
     case COMING_SOON_DATA:
       return { ...state, comingSoonFilms: action.payload };
