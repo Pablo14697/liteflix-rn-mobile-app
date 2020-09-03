@@ -1,4 +1,7 @@
+// REACT
 import React from 'react';
+
+// STYLES
 import { BurgerMenuButton, Fill, HeaderContent, NativeStyles } from './styles';
 
 // ASSETS

@@ -1,6 +1,6 @@
 // REACT
 import React, { useEffect, useState, createRef } from 'react';
-import { FlatList, RefreshControl, StatusBar, Alert } from 'react-native';
+import { Alert, FlatList, RefreshControl, StatusBar } from 'react-native';
 
 // LIBS
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,9 +16,6 @@ import {
   ComingSoonSectionContainer,
   Container,
   GradientColors,
-  MyMovieFilmButton,
-  MyMovieImage,
-  MyMoviesContainer,
   NativeStyles,
   PopularFilmButton,
   PopularImage,
@@ -41,7 +38,7 @@ import { setFilms, setFilmsError, setUpdateFlag } from '../../redux/actions/film
 
 // COMPONENTS
 import { LoadingModal, Spacing, Typography } from '../../components';
-import { HeaderMenu, PlayAndPlusButtons } from './components';
+import { HeaderMenu, PlayAndPlusButtons, MyMoviesList } from './components';
 
 // TYPES
 import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
@@ -80,8 +77,6 @@ function Home({
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const getKeyExtractor = (item: FilmsResults) => String(item.id);
-
-  const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
 
   const getComingSoon = async () => {
     const endpoint = `${Config.API_URL}upcoming?api_key=${Config.MOVIE_DB_API_KEY}`;
@@ -158,20 +153,6 @@ function Home({
     );
   };
 
-  const renderMyMoviesItem = ({ item }: { item: Movie }) => {
-    const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
-    return (
-      <MyMovieFilmButton>
-        <MyMovieImage source={{ uri: item.backdrop_path }} />
-        <TitleContainer>
-          <Typography color="white" size={20}>
-            {title.toUpperCase()}
-          </Typography>
-        </TitleContainer>
-      </MyMovieFilmButton>
-    );
-  };
-
   const renderPopularItem = ({ item }: { item: FilmsResults }) => {
     const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;
     return (
@@ -209,20 +190,7 @@ function Home({
         onPressPlay={sendAlert.bind(null, 'onPressPlay')}
         onPressPlus={sendAlert.bind(null, 'onPressPlus')}
       />
-      {films.myMovies.length > 0 && (
-        <MyMoviesContainer>
-          <Typography color="white" size={22}>
-            Mis películas
-          </Typography>
-          <Spacing size={5} />
-          <FlatList
-            data={films.myMovies}
-            keyExtractor={getMyMoviesKeyExtractor}
-            ItemSeparatorComponent={renderSeparator.bind(null, 5)}
-            renderItem={renderMyMoviesItem}
-          />
-        </MyMoviesContainer>
-      )}
+      {films.myMovies.length > 0 && <MyMoviesList data={films.myMovies} />}
 
       <ComingSoonSectionContainer isMarginTop={films.myMovies.length === 0}>
         <Typography color="white" size={22}>

@@ -41,19 +41,6 @@ export const GradientColors = [
   theme.colors.opacity100Black,
 ];
 
-export const MyMovieFilmButton = styled(TouchableOpacity)({ alignSelf: 'center', width: '100%' });
-
-export const MyMovieImage = styled(Image)({
-  height: 200,
-  width: '100%',
-});
-
-export const MyMoviesContainer = styled(View)({
-  marginTop: 80,
-  paddingHorizontal: 20,
-  width: '100%',
-});
-
 export const NativeStyles = StyleSheet.create({
   columnFlatList: { justifyContent: 'space-between' },
   footerFlatList: { width: '100%', marginBottom: '20%' },

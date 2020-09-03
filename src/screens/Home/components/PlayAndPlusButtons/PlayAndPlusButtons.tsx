@@ -1,4 +1,7 @@
+// REACT
 import React from 'react';
+
+// STYLES
 import { Fill, OnImageContent, PlayButton, PlayContainer, PlusButton } from './styles';
 
 // ASSETS
