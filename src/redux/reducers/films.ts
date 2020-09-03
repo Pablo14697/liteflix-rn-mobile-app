@@ -85,7 +85,7 @@ const initialState: FilmsState = {
 function films(state: FilmsState = initialState, action: SetFilmsAction) {
   switch (action.type) {
     case FILMS_DATA:
-      return { ...state, films: action.payload };
+      return { ...state, error: false, films: action.payload };
     case FILMS_DATA_ERROR:
       return { ...state, error: action.error };
     case UPDATE_FLAG:

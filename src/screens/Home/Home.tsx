@@ -305,7 +305,6 @@ function Home({
       setUpdateFlag(false);
     }
   }, [updateFlagStatus]);
-
   const poster =
     films.outstanding.results &&
     films.outstanding.results.length > 0 &&
