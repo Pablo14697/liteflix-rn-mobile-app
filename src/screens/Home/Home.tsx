@@ -226,8 +226,6 @@ function Home({
     films.outstanding.results[0].poster_path.length > 0 &&
     films.outstanding.results[0].poster_path;
 
-  console.log('filmsError', filmsError);
-
   return (
     <Container>
       <StatusBar barStyle="light-content" />
