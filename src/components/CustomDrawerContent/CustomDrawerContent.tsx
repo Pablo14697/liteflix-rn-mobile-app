@@ -2,8 +2,10 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 
-// CUSTOM COMPONENTS
-import { AddFilmButton, Spacing, Typography } from '../../components';
+// COMPONENTS
+import AddFilmButton from '../AddFilmButton/AddFilmButton';
+import Spacing from '../Spacing/Spacing';
+import Typography from '../Typography/Typography';
 
 // NAVIGATION
 import { goToPage } from '../../navigation/RootNavigation';
