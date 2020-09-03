@@ -254,7 +254,7 @@ function Home({
   const renderFooter = () => (
     <PopularSectionContainer>
       <Typography color="white" size={22}>
-        Populares DE LITEFLIX
+        Populares de Liteflix
       </Typography>
       <Spacing size={5} />
       <FlatList
