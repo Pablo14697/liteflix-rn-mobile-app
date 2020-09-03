@@ -31,7 +31,7 @@ import { CineIcon } from '../../assets/images';
 // UTILS
 import { theme } from '../../utils';
 import { MY_MOVIES } from '../../utils/constants';
-import { goBack } from '../../navigation';
+import { goToPage } from '../../navigation';
 
 interface FormValues {
   title: string;
@@ -67,7 +67,7 @@ function AddFilm() {
     myMovies.push(newMovie);
     const convertArrayToStringify = JSON.stringify(myMovies);
     await AsyncStorage.setItem(MY_MOVIES, convertArrayToStringify)
-      .then(() => goBack())
+      .then(() => goToPage('Home'))
       .catch(() =>
         Alert.alert('Error', 'Algo ha ido mal.', [
           {
@@ -95,7 +95,7 @@ function AddFilm() {
 
   useEffect(() => {
     getMyMovies();
-  }, []);
+  }, [myMovies]);
 
   return (
     <Container>

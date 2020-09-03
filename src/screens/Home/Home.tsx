@@ -229,7 +229,7 @@ function Home({
         </MyMoviesContainer>
       )}
 
-      <ComingSoonSectionContainer>
+      <ComingSoonSectionContainer isMarginTop={myMovies.length === 0}>
         <Typography color="white" size={22}>
           Próximamente
         </Typography>

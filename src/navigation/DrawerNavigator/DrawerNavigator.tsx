@@ -11,7 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { goToPage } from '../RootNavigation';
 
 // SCREENS
-import { Home } from '../../screens';
+import { AddFilm, Home } from '../../screens';
 
 // STYLES
 import {
@@ -103,6 +103,7 @@ function DrawerNavigator() {
       drawerContent={(props: DrawerContentComponentProps) => <CustomDrawerContent {...props} />}
       drawerStyle={NativeStyles.drawer}>
       <Screen name="Home" component={Home} />
+      <Screen name="AddFilm" component={AddFilm} />
     </Drawer.Navigator>
   );
 }
