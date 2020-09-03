@@ -149,7 +149,7 @@ function Home({
     );
   };
 
-  const renderSeparator = (size: number) => <Spacing size={size} />;
+  const renderSeparator = () => <Spacing size={5} />;
 
   const sendAlert = (text: string) => {
     Alert.alert('onPress: ', text);
@@ -224,7 +224,7 @@ function Home({
       ) : (
         <FlatList
           data={films.comingSoon.results}
-          ItemSeparatorComponent={renderSeparator.bind(null, 5)}
+          ItemSeparatorComponent={renderSeparator}
           ListFooterComponent={renderFooter}
           ListFooterComponentStyle={NativeStyles.footerFlatList}
           ListHeaderComponent={renderHeader}

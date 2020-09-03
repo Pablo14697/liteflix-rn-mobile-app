@@ -46,7 +46,7 @@ const PopularList = ({ data, flatListRef }: Props) => {
     );
   };
 
-  const renderSeparator = () => <Spacing size={5} />;
+  const renderSeparator = () => <Spacing size={2} />;
 
   const goToTop = () => {
     flatListRef.current.scrollToOffset({ offset: 0 });
