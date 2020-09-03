@@ -9,7 +9,7 @@ import LottieView from 'lottie-react-native';
 import { LoadingModalContainer, NativeStyles } from './styles';
 
 // RESOURCEs
-import LoadingDotsDarkBlue from '../../assets/animations';
+import { Loading } from '../../assets/animations';
 
 interface Props {
   visible: boolean;
@@ -18,7 +18,7 @@ interface Props {
 const LoadingModal = ({ visible }: Props) => (
   <Modal transparent visible={visible}>
     <LoadingModalContainer>
-      <LottieView autoPlay loop source={LoadingDotsDarkBlue} style={NativeStyles.loadingDots} />
+      <LottieView autoPlay loop source={Loading} style={NativeStyles.loadingDots} />
     </LoadingModalContainer>
   </Modal>
 );

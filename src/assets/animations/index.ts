@@ -1,1 +1,1 @@
-export default './loading-dots-dark-blue.json';
+export { default as Loading } from './redLoading.json';
