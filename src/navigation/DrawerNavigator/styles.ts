@@ -50,7 +50,7 @@ export const Line = styled(View)({
   width: '90%',
 });
 
-export const LogOutButton = styled(TouchableOpacity)({ marginTop: '5%' });
+export const LogOutButton = styled(TouchableOpacity)({ marginVertical: '5%' });
 
 export const NativeStyles = {
   drawer: { width: '75%' },

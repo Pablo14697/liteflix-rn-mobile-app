@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 // UTILS
 import { theme } from '../../utils';
+import { hastNotch } from '../../utils/devices';
 
 export const BurgerMenuButton = styled(TouchableOpacity)({});
 
@@ -26,7 +27,7 @@ export const HeaderContent = styled(View)({
   flexDirection: 'row',
   justifyContent: 'space-between',
   marginHorizontal: 20,
-  marginTop: '7%',
+  marginTop: hastNotch ? '7%' : 0,
   position: 'absolute',
   width: '90%',
 });
