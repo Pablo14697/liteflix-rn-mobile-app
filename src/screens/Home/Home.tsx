@@ -1,13 +1,13 @@
 // REACT
 import React, { useEffect, useState, createRef } from 'react';
-import { FlatList, RefreshControl, StatusBar } from 'react-native';
+import { FlatList, RefreshControl, StatusBar, Alert } from 'react-native';
 
 // LIBS
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // ASSETS
-import { PlayIcon, PlusIcon, UpArrow, WarningIcon } from '../../assets/images/';
+import { UpArrow, WarningIcon } from '../../assets/images/';
 
 // STYLES
 import {
@@ -15,16 +15,11 @@ import {
   ComingSoonImage,
   ComingSoonSectionContainer,
   Container,
-  Fill,
   GradientColors,
   MyMovieFilmButton,
   MyMovieImage,
   MyMoviesContainer,
   NativeStyles,
-  OnImageContent,
-  PlayButton,
-  PlayContainer,
-  PlusContainer,
   PopularFilmButton,
   PopularImage,
   PopularSectionContainer,
@@ -46,6 +41,7 @@ import { setFilms, setFilmsError, setUpdateFlag } from '../../redux/actions/film
 
 // COMPONENTS
 import { LoadingModal, Spacing, Typography } from '../../components';
+import { HeaderMenu, PlayAndPlusButtons } from './components';
 
 // TYPES
 import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
@@ -53,7 +49,6 @@ import { FilmsResults, SetOfFilms } from '../../redux/reducers/films';
 // UTILS
 import Config from '../../config';
 import { MY_MOVIES } from '../../utils/constants';
-import { HeaderMenu } from './components';
 
 interface Props {
   films: SetOfFilms;
@@ -192,6 +187,10 @@ function Home({
   };
   const renderSeparator = (size: number) => <Spacing size={size} />;
 
+  const sendAlert = (text: string) => {
+    Alert.alert('onPress: ', text);
+  };
+
   const renderHeader = () => (
     <>
       <StarringImage
@@ -206,21 +205,10 @@ function Home({
         />
       </StarringImage>
       <HeaderMenu navigation={navigation} poster={poster} />
-      <OnImageContent>
-        <Fill />
-        <PlayButton>
-          <PlayContainer>
-            <PlayIcon height={30} width={30} />
-            <Spacing isHorizontal size={5} />
-            <Typography color="white" size={20}>
-              Reproducir
-            </Typography>
-          </PlayContainer>
-        </PlayButton>
-        <PlusContainer>
-          <PlusIcon height={20} width={20} />
-        </PlusContainer>
-      </OnImageContent>
+      <PlayAndPlusButtons
+        onPressPlay={sendAlert.bind(null, 'onPressPlay')}
+        onPressPlus={sendAlert.bind(null, 'onPressPlus')}
+      />
       {films.myMovies.length > 0 && (
         <MyMoviesContainer>
           <Typography color="white" size={22}>
