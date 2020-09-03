@@ -1,5 +1,5 @@
 // REACT
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StatusBar } from 'react-native';
 
 // LIBS
@@ -48,7 +48,7 @@ import {
 } from '../../redux/actions/films';
 
 // COMPONENTS
-import { Typography, Spacing } from '../../components';
+import { Typography, Spacing, LoadingModal } from '../../components';
 
 // TYPES
 import { Films, FilmsResults } from '../../redux/reducers/films';
@@ -86,11 +86,14 @@ function Home({
   setOutstandingFilms,
   setPopularFilms,
 }: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const openDrawerNavigator = () => {
     navigation.openDrawer();
   };
 
   const getFilms = async () => {
+    setLoading(true);
     const promises = [getComingSoon(), getOutstanding(), getPopular(), getMyMovies()];
     Promise.all(promises)
       .then((results) => {
@@ -100,6 +103,7 @@ function Home({
         setMyMovies(results[3]);
       })
       .catch((error) => console.log('Error getting coming soon films on Home screen: ', error));
+    setTimeout(() => setLoading(false), 1000);
   };
 
   const getMyMovies = async () => {
@@ -277,6 +281,7 @@ function Home({
         keyExtractor={getKeyExtractor}
         renderItem={renderComingSoonItem}
       />
+      <LoadingModal visible={loading} />
     </Container>
   );
 }

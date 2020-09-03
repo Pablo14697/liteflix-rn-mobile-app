@@ -30,10 +30,9 @@ export type Films = {
   total_pages: number;
   total_results: number;
 };
+
 export interface FilmsState {
   comingSoonFilms: Films;
-  error: string;
-  loading: boolean;
   myMovies: Movie[];
   outstandingFilms: Films;
   popularFilms: Films;
@@ -66,8 +65,6 @@ const initialFilms = {
 
 const initialState: FilmsState = {
   comingSoonFilms: initialFilms,
-  error: '',
-  loading: false,
   myMovies: [],
   outstandingFilms: initialFilms,
   popularFilms: initialFilms,
