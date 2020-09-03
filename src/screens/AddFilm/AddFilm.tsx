@@ -6,6 +6,9 @@ import { Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
+// NAVIGATION
+import { resetStack } from '../../navigation/RootNavigation';
+
 // COMPONENTS
 import { AddFilmButton, ErrorMessageForm, Header } from '../../components';
 
@@ -31,7 +34,6 @@ import { CineIcon } from '../../assets/images';
 // UTILS
 import { theme } from '../../utils';
 import { MY_MOVIES } from '../../utils/constants';
-import { goToPage } from '../../navigation';
 
 // REDUX
 import { setUpdateFlag } from '../../redux/actions/films';
@@ -73,11 +75,11 @@ function AddFilm({ setUpdateFlag }: Props) {
     const { title } = filmForm;
     const newMovie = { title, backdrop_path: movieImage };
 
-    myMovies.push(newMovie);
+    myMovies.unshift(newMovie);
     const convertArrayToStringify = JSON.stringify(myMovies);
     await AsyncStorage.setItem(MY_MOVIES, convertArrayToStringify)
       .then(() => {
-        goToPage('Home');
+        resetStack('Main');
         setUpdateFlag(true);
       })
       .catch((error) => {

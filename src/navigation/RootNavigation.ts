@@ -10,3 +10,10 @@ export function goToPage(name: string, params: object = {}) {
 export function goBack() {
   navigationRef.current?.goBack();
 }
+
+export function resetStack(name: string) {
+  navigationRef.current?.reset({
+    index: 0,
+    routes: [{ name }],
+  });
+}
