@@ -205,8 +205,6 @@ function Home({
     outstandingFilms.results[0].poster_path.length > 0 &&
     outstandingFilms.results[0].poster_path;
 
-  console.log({ comingSoonFilms, outstandingFilms, popularFilms });
-
   return (
     <Container>
       <StatusBar barStyle="light-content" />
