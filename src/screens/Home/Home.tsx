@@ -4,6 +4,7 @@ import { FlatList, StatusBar } from 'react-native';
 
 // LIBS
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // ASSETS
 import { BurgerIcon, BurgerIconWhite, Liteflix, PlayIcon, PlusIcon } from '../../assets/images/';
@@ -49,20 +50,19 @@ import {
 } from '../../redux/actions/films';
 
 // COMPONENTS
-import { Typography, Spacing, LoadingModal } from '../../components';
+import { LoadingModal, Spacing, Typography } from '../../components';
 
 // TYPES
 import { Films, FilmsResults } from '../../redux/reducers/films';
 
 // UTILS
 import Config from '../../config';
-import AsyncStorage from '@react-native-community/async-storage';
 import { MY_MOVIES } from '../../utils/constants';
 
 interface Props {
   comingSoonFilms: Films;
-  navigation: DrawerNavigationProp<Record<string, object | undefined>>;
   myMovies: Movie[];
+  navigation: DrawerNavigationProp<Record<string, object | undefined>>;
   outstandingFilms: Films;
   popularFilms: Films;
   setComingSoonFilms: (payload: Films) => void;
@@ -80,8 +80,8 @@ interface Movie {
 
 function Home({
   comingSoonFilms,
-  navigation,
   myMovies,
+  navigation,
   outstandingFilms,
   popularFilms,
   setComingSoonFilms,
@@ -95,6 +95,16 @@ function Home({
 
   const openDrawerNavigator = () => {
     navigation.openDrawer();
+  };
+
+  const getKeyExtractor = (item: FilmsResults) => String(item.id);
+
+  const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
+
+  const getComingSoon = async () => {
+    const response = await fetch(Config.COMING_SOON_API_URL);
+    const data = await response.json();
+    return data;
   };
 
   const getFilms = async () => {
@@ -119,12 +129,6 @@ function Home({
     } else {
       return [];
     }
-  };
-
-  const getComingSoon = async () => {
-    const response = await fetch(Config.COMING_SOON_API_URL);
-    const data = await response.json();
-    return data;
   };
 
   const getOutstanding = async () => {
@@ -181,8 +185,6 @@ function Home({
     );
   };
   const renderSeparator = (size: number) => <Spacing size={size} />;
-  const getKeyExtractor = (item: FilmsResults) => String(item.id);
-  const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
 
   const renderHeader = () => (
     <>
@@ -277,9 +279,6 @@ function Home({
     outstandingFilms.results[0].poster_path.length > 0 &&
     outstandingFilms.results[0].poster_path;
 
-  console.log('updateFlagStatus', updateFlagStatus);
-
-  console.log('Loading', loading);
   return (
     <Container>
       <StatusBar barStyle="light-content" />
