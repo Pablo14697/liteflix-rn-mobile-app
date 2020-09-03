@@ -336,7 +336,7 @@ function Home({
           renderItem={renderComingSoonItem}
         />
       )}
-      <LoadingModal visible={loading} />
+      <LoadingModal visible={loading || refreshing} />
     </Container>
   );
 }
