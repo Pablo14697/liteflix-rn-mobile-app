@@ -330,15 +330,10 @@ function Home({
     films.outstanding.results[0].poster_path.length > 0 &&
     films.outstanding.results[0].poster_path;
 
-  const isMissingSomeFilmData =
-    films.comingSoon.results.length === 0 ||
-    films.outstanding.results.length === 0 ||
-    films.popular.results.length === 0;
-
   return (
     <Container>
       <StatusBar barStyle="light-content" />
-      {filmsError || isMissingSomeFilmData ? (
+      {filmsError ? (
         renderWarning()
       ) : (
         <FlatList
