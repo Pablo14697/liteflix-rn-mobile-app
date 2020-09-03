@@ -74,13 +74,6 @@ function Home({
 
   const getKeyExtractor = (item: FilmsResults) => String(item.id);
 
-  const getComingSoon = async () => {
-    const endpoint = `${Config.API_URL}upcoming?api_key=${Config.MOVIE_DB_API_KEY}`;
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    return data;
-  };
-
   const getFilms = async (refreshControl: boolean = false) => {
     if (refreshControl) {
       setRefreshing(true);
@@ -96,11 +89,21 @@ function Home({
           outstanding: results[1],
           popular: results[2],
         };
+        let success = true;
+        results.forEach((element) => {
+          if (element.success !== undefined) {
+            success = element.success;
+          }
+        });
+
+        if (!success) {
+          return setFilmsError(true);
+        }
         setFilms(films);
       })
       .catch((error) => {
         setFilmsError(true);
-        console.log('Error getting coming soon films on Home screen: ', error);
+        console.log('Error getting films on Home screen: ', error);
       });
     setTimeout(() => {
       if (refreshControl) {
@@ -109,6 +112,13 @@ function Home({
         setLoading(false);
       }
     }, 1000);
+  };
+
+  const getComingSoon = async () => {
+    const endpoint = `${Config.API_URL}upcoming?api_key=${Config.MOVIE_DB_API_KEY}`;
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    return data;
   };
 
   const getMyMovies = async () => {
@@ -215,6 +225,8 @@ function Home({
     films.outstanding.results.length > 0 &&
     films.outstanding.results[0].poster_path.length > 0 &&
     films.outstanding.results[0].poster_path;
+
+  console.log('filmsError', filmsError);
 
   return (
     <Container>
