@@ -8,12 +8,15 @@ Liteflix Mobile App with React Native v0.63.2 - Typescript - Redux.
 $ yarn install
 $ cd ios && pod install
 ```
+
 ## Launch iOS
+
 ```
 $ npx react-native run-ios
 ```
 
 ## Launch Android
+
 ```
 $ npx react-native run-android
 ```
@@ -29,12 +32,12 @@ $ npx react-native run-android
 Create a .env file in project's root folder and write this inside the file (I left a file called .env.example to ease the copied):
 
 ```
-COMING_SOON_API_URL=https://api.themoviedb.org/3/movie/upcoming?api_key={get_a_key_from_themoviedb}
+API_URL=https://api.themoviedb.org/3/movie/
 IMAGES_API_URL=https://image.tmdb.org/t/p/w500
+MOVIE_DB_API_KEY=movie_db_api_key
 NODE_ENV=dev
-OUTSTANDING_API_URL=https://api.themoviedb.org/3/movie/now_playing?api_key={get_a_key_from_themoviedb}
-POPULAR_API_URL=https://api.themoviedb.org/3/movie/popular?api_key={get_a_key_from_themoviedb}
 ```
+
 ## Libraries used
 
 - React Native v0.63.2
@@ -46,7 +49,7 @@ POPULAR_API_URL=https://api.themoviedb.org/3/movie/popular?api_key={get_a_key_fr
 - React Navigation v5
 - AsyncStorage
 - Lottie
-- Image crop picker 
+- Image crop picker
 - Linear Gradient
 - React Native SVG
 
