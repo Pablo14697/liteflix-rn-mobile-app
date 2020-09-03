@@ -10,6 +10,7 @@ import { Spacing, Typography } from '../../../../components';
 
 interface Movie {
   backdrop_path: string;
+  id?: number;
   title: string;
 }
 
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export const MyMoviesList = ({ data }: Props) => {
-  const getMyMoviesKeyExtractor = (item: Movie) => String(item.title);
+  const getMyMoviesKeyExtractor = (item: Movie) => String(item.id);
 
   const renderMyMoviesItem = ({ item }: { item: Movie }) => {
     const title = item.title.length > 33 ? `${item.title.slice(0, 32)}..` : item.title;

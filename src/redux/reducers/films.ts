@@ -20,6 +20,7 @@ export type FilmsResults = {
 
 type Movie = {
   backdrop_path: string;
+  index: number;
   title: string;
 };
 

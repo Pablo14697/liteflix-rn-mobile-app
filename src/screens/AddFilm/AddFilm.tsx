@@ -42,6 +42,7 @@ interface FormValues {
 
 interface Movie {
   backdrop_path: string;
+  id: number;
   title: string;
 }
 
@@ -65,7 +66,7 @@ function AddFilm() {
 
   const onSaveMovie = async (filmForm: FormValues) => {
     const { title } = filmForm;
-    const newMovie = { title, backdrop_path: movieImage };
+    const newMovie = { id: myMovies.length, title, backdrop_path: movieImage };
 
     myMovies.unshift(newMovie);
     const convertArrayToStringify = JSON.stringify(myMovies);

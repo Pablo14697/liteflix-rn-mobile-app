@@ -51,11 +51,6 @@ interface Props {
   setFilmsError: (status: boolean) => void;
 }
 
-interface Movie {
-  backdrop_path: string;
-  title: string;
-}
-
 const flatListRef: any = createRef();
 
 function Home({ films, filmsError, navigation, setFilms, setFilmsError }: Props) {
